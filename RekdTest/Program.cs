@@ -15,10 +15,10 @@ namespace RekdTest
 		[STAThread]
 		public static void Main()
 		{
-			//using (Game1 game = new Game1())
-			//{
-			//	game.Run("Rekd Test", 800, 480);
-			//}
+			using (Game1 game = new Game1())
+			{
+				game.Run("Rekd Test", 800, 480);
+			}
 		}
 	}
 }

@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using D2D = SlimDX.Direct2D;
 
-namespace RekdEngine
+namespace RekdEngine.Core
 {
-	public abstract class Game : IDisposable
+	public abstract class Game : RunnableRekd, IDisposable
 	{
 		/// <summary>
 		/// Load Content here
