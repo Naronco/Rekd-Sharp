@@ -211,17 +211,17 @@ namespace RekdEngine.UtilMath
 		{
 			float s = (float)Math.Sin(rad);
 			float c = (float)Math.Cos(rad);
-			return (this * new Matrix3x3(c, -s, 0, s, c, 0, 0, 0, 1));
+			return (this *= new Matrix3x3(c, -s, 0, s, c, 0, 0, 0, 1));
 		}
 
 		public Matrix3x3 Scale(float x, float y)
 		{
-			return (this * new Matrix3x3(x, 0, 0, 0, y, 0, 0, 0, 1));
+			return (this *= new Matrix3x3(x, 0, 0, 0, y, 0, 0, 0, 1));
 		}
 
 		public Matrix3x3 Translate(float x, float y)
 		{
-			return (this * new Matrix3x3(1, 0, x, 0, 1, y, 0, 0, 1));
+			return (this *= new Matrix3x3(1, 0, x, 0, 1, y, 0, 0, 1));
 		}
 
 		public Matrix3x3 Transpose()
