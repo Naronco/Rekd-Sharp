@@ -1,9 +1,0 @@
-D:\Documents\Visual Studio 2013\Projects\RekdSharp\RekdEngine\obj\Debug\RekdEngine.csprojResolveAssemblyReference.cache
-D:\Documents\Visual Studio 2013\Projects\RekdSharp\RekdEngine\bin\Debug\RekdEngine.dll
-D:\Documents\Visual Studio 2013\Projects\RekdSharp\RekdEngine\bin\Debug\RekdEngine.pdb
-D:\Documents\Visual Studio 2013\Projects\RekdSharp\RekdEngine\bin\Debug\Box2DX.dll
-D:\Documents\Visual Studio 2013\Projects\RekdSharp\RekdEngine\bin\Debug\SlimDX.dll
-D:\Documents\Visual Studio 2013\Projects\RekdSharp\RekdEngine\bin\Debug\SlimDX.pdb
-D:\Documents\Visual Studio 2013\Projects\RekdSharp\RekdEngine\bin\Debug\SlimDX.xml
-D:\Documents\Visual Studio 2013\Projects\RekdSharp\RekdEngine\obj\Debug\RekdEngine.dll
-D:\Documents\Visual Studio 2013\Projects\RekdSharp\RekdEngine\obj\Debug\RekdEngine.pdb
