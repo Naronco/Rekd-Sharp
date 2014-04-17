@@ -175,5 +175,20 @@ namespace RekdEngine.Core
 		{
 			return "{R: " + R + ", G: " + G + ", B: " + B + ", A: " + A + "}";
 		}
+
+		public SlimDX.Color4 AsSlimDX4()
+		{
+			return new SlimDX.Color4(A / 255.0f, R / 255.0f, G / 255.0f, B / 255.0f);
+		}
+
+		public SlimDX.Color4 AsSlimDX3()
+		{
+			return new SlimDX.Color4(R / 255.0f, G / 255.0f, B / 255.0f);
+		}
+
+		public System.Drawing.Color AsSystem()
+		{
+			return System.Drawing.Color.FromArgb(A, R, G, B);
+		}
 	}
 }
