@@ -22,11 +22,11 @@ namespace RekdTest
 		{
 		}
 
-		public override void Update()
+		public override void Update(TimeSpan delta)
 		{
 		}
 
-		public override void Render()
+		public override void Render(TimeSpan delta)
 		{
 		}
 	}
