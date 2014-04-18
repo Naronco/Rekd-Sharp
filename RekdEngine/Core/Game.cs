@@ -45,12 +45,12 @@ namespace RekdEngine.Core
 			{
 				TimeSpan t = CalculateDelta();
 				Update(t);
-				BindRendertarget();
 				Clear(Color.SkyBlue);
 				Render(t);
-				PresentRendertarget();
+				Present();
 			};
 			DoMainLoop();
+			Unload();
 		}
 
 		public override void BeforeLoop()
@@ -61,11 +61,6 @@ namespace RekdEngine.Core
 		public override void InitVars()
 		{
 			Init();
-		}
-
-		public void Dispose()
-		{
-			Unload();
 		}
 	}
 }

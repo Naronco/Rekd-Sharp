@@ -50,7 +50,6 @@
   <ItemGroup>
     <Compile Include="Core\Color.cs" />
     <Compile Include="Core\Extension.cs" />
-    <Compile Include="Core\ExtensionType.cs" />
     <Compile Include="Core\RunnableRekd.cs" />
     <Compile Include="Core\Game.cs" />
     <Compile Include="Event\Events.cs" />

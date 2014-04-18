@@ -1,5 +1,6 @@
 ﻿using RekdEngine;
 using RekdEngine.Core;
+using SlimDX.Direct3D9;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,9 @@ namespace RekdTest
 
 		public override void Render(TimeSpan delta)
 		{
+			Clear(new Color(43, 78, 124));
+			BeginScene();
+			EndScene();
 		}
 	}
 }

@@ -1,9 +1,10 @@
 ﻿using RekdEngine.Event;
 using SlimDX;
-using SlimDX.Direct2D;
+using SlimDX.Direct3D9;
 using SlimDX.Windows;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,10 +16,9 @@ namespace RekdEngine.Core
 {
 	public class RunnableRekd : IDisposable
 	{
-		private WindowRenderTarget RenderTarget;
-		private Factory factory;
-		private Form handle;
-		private RenderTarget CurrentRenderTarget;
+		protected RenderForm Window;
+		protected Device Device;
+		protected Direct3D Direct3D;
 
 		public int PreWindowWidth;
 		public int PreWindowHeight;
@@ -34,26 +34,26 @@ namespace RekdEngine.Core
 			MainLoop = () =>
 			{
 				UpdateWindow();
-				BindRendertarget();
-				Clear(Color.SkyBlue);
-				PresentRendertarget();
+				Clear(new Color(43, 78, 124));
+				BeginScene();
+				EndScene();
 			};
 		}
 
 		public void InitDX()
 		{
-			factory = new Factory();
-			RenderTarget = new WindowRenderTarget(factory, new WindowRenderTargetProperties
+			Direct3D = new Direct3D();
+			Device = new Device(Direct3D, 0, DeviceType.Hardware, Window.Handle, CreateFlags.HardwareVertexProcessing, new PresentParameters()
 			{
-				Handle = handle.Handle,
-				PixelSize = new Size(PreWindowWidth, PreWindowHeight)
+				BackBufferWidth = Window.ClientSize.Width,
+				BackBufferHeight = Window.ClientSize.Height
 			});
-			handle.Location = new Point(Screen.PrimaryScreen.Bounds.Width / 2 - handle.Width / 2, Screen.PrimaryScreen.Bounds.Height / 2 - handle.Height / 2);
+			Window.Location = new Point(Screen.PrimaryScreen.Bounds.Width / 2 - Window.Width / 2, Screen.PrimaryScreen.Bounds.Height / 2 - Window.Height / 2);
 		}
 
-		public Form CreateWindowHandle(string title, int width, int height)
+		public RenderForm CreateWindowHandle(string title, int width, int height)
 		{
-			Form handle = new RenderForm(title)
+			RenderForm handle = new RenderForm(title)
 			{
 				ClientSize = new Size(width, height)
 			};
@@ -72,7 +72,7 @@ namespace RekdEngine.Core
 
 		public void CreateWindow()
 		{
-			handle = CreateWindowHandle(PreWindowTitle, PreWindowWidth, PreWindowHeight);
+			Window = CreateWindowHandle(PreWindowTitle, PreWindowWidth, PreWindowHeight);
 			Closed = false;
 		}
 
@@ -90,22 +90,16 @@ namespace RekdEngine.Core
 
 		public void ShowWindow()
 		{
-			handle.Show();
+			Window.Show();
 		}
 
 		public void UpdateWindow()
 		{
 		}
 
-		public void BindRendertarget()
-		{
-			CurrentRenderTarget = RenderTarget;
-			CurrentRenderTarget.BeginDraw();
-		}
-
 		public void Clear(Color c)
 		{
-			CurrentRenderTarget.Clear(c.AsSlimDX4());
+			Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, c.AsSlimDX4(), 1.0f, 0);
 		}
 
 		public TimeSpan CalculateDelta()
@@ -118,12 +112,15 @@ namespace RekdEngine.Core
 			MessagePump.Run(f, () =>
 			{
 				if (!isOpen()) return;
+				Clear(new Color(43, 78, 124));
 				doStuff();
 			});
 		}
 
 		public void DoMainLoop()
 		{
+			Console.WriteLine("Started Game using Rekd#");
+			Stopwatch sw = Stopwatch.StartNew();
 			CreateWindow();
 			InitDX();
 			InitVars();
@@ -131,9 +128,10 @@ namespace RekdEngine.Core
 			LoadAddons();
 			BeforeLoop();
 			PrepareRender();
-			Console.WriteLine("Started MainLoop");
-			DoFormLoop(handle, () => { return !Closed; }, MainLoop);
-			Console.WriteLine("Stopped MainLoop");
+			sw.Stop();
+			Console.WriteLine("Initialized in " + sw.Elapsed.ToString());
+			DoFormLoop(Window, () => { return !Closed; }, MainLoop);
+			Console.WriteLine("Stopped Game");
 		}
 
 		public virtual void BeforeLoop()
@@ -144,13 +142,25 @@ namespace RekdEngine.Core
 		{
 		}
 
-		public void PresentRendertarget()
+		public void BeginScene()
 		{
-			CurrentRenderTarget.EndDraw();
+			Device.BeginScene();
+		}
+
+		public void EndScene()
+		{
+			Device.EndScene();
+		}
+
+		public void Present()
+		{
+			Device.Present();
 		}
 
 		public void Dispose()
 		{
+			foreach (var item in ObjectTable.Objects)
+				item.Dispose();
 		}
 	}
 }
