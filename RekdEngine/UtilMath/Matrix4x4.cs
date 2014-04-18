@@ -177,30 +177,10 @@ namespace RekdEngine.UtilMath
 			}
 		}
 
-		public Matrix4x4()
-		{
-			M00 = 1;
-			M01 = 0;
-			M02 = 0;
-			M03 = 0;
-			M10 = 0;
-			M11 = 1;
-			M12 = 0;
-			M13 = 0;
-			M20 = 0;
-			M21 = 0;
-			M22 = 1;
-			M23 = 0;
-			M30 = 0;
-			M31 = 0;
-			M32 = 0;
-			M33 = 1;
-		}
-
-		public Matrix4x4(float M00, float M01, float M02, float M03,
-						float M10, float M11, float M12, float M13,
-						float M20, float M21, float M22, float M23,
-						float M30, float M31, float M32, float M33)
+		public Matrix4x4(float M00 = 1, float M01 = 0, float M02 = 0, float M03 = 0,
+						float M10 = 0, float M11 = 1, float M12 = 0, float M13 = 0,
+						float M20 = 0, float M21 = 0, float M22 = 1, float M23 = 0,
+						float M30 = 0, float M31 = 0, float M32 = 0, float M33 = 1)
 		{
 			this.M00 = M00;
 			this.M01 = M01;

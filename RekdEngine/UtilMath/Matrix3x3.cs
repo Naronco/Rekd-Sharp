@@ -114,22 +114,9 @@ namespace RekdEngine.UtilMath
 			}
 		}
 
-		public Matrix3x3()
-		{
-			M00 = 1;
-			M01 = 0;
-			M02 = 0;
-			M10 = 0;
-			M11 = 1;
-			M12 = 0;
-			M20 = 0;
-			M21 = 0;
-			M22 = 1;
-		}
-
-		public Matrix3x3(float M00, float M01, float M02,
-						 float M10, float M11, float M12,
-						 float M20, float M21, float M22)
+		public Matrix3x3(float M00 = 1, float M01 = 0, float M02 = 0,
+						 float M10 = 0, float M11 = 1, float M12 = 0,
+						 float M20 = 0, float M21 = 0, float M22 = 1)
 		{
 			this.M00 = M00;
 			this.M01 = M01;
