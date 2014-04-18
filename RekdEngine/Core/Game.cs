@@ -38,11 +38,17 @@ namespace RekdEngine.Core
 
 		public void Run(string Title, uint Width, uint Height)
 		{
+			PreWindowTitle = Title;
+			PreWindowWidth = (int)Width;
+			PreWindowHeight = (int)Height;
 			MainLoop = () =>
 			{
 				TimeSpan t = CalculateDelta();
 				Update(t);
+				BindRendertarget();
+				Clear(Color.SkyBlue);
 				Render(t);
+				PresentRendertarget();
 			};
 			DoMainLoop();
 		}

@@ -1,4 +1,5 @@
 ﻿using RekdEngine.Event;
+using SlimDX;
 using SlimDX.Direct2D;
 using SlimDX.Windows;
 using System;
@@ -24,9 +25,9 @@ namespace RekdEngine.Core
 		public string PreWindowTitle;
 		public Action MainLoop;
 
-		public FormWindowState WindowState { public get; protected set; }
+		public FormWindowState WindowState { get; protected set; }
 
-		public bool Closed { public get; protected set; }
+		public bool Closed { get; protected set; }
 
 		public RunnableRekd()
 		{
@@ -34,17 +35,20 @@ namespace RekdEngine.Core
 			{
 				UpdateWindow();
 				BindRendertarget();
+				Clear(Color.SkyBlue);
 				PresentRendertarget();
 			};
 		}
 
 		public void InitDX()
 		{
+			factory = new Factory();
 			RenderTarget = new WindowRenderTarget(factory, new WindowRenderTargetProperties
 			{
 				Handle = handle.Handle,
 				PixelSize = new Size(PreWindowWidth, PreWindowHeight)
 			});
+			handle.Location = new Point(Screen.PrimaryScreen.Bounds.Width / 2 - handle.Width / 2, Screen.PrimaryScreen.Bounds.Height / 2 - handle.Height / 2);
 		}
 
 		public Form CreateWindowHandle(string title, int width, int height)
@@ -69,6 +73,7 @@ namespace RekdEngine.Core
 		public void CreateWindow()
 		{
 			handle = CreateWindowHandle(PreWindowTitle, PreWindowWidth, PreWindowHeight);
+			Closed = false;
 		}
 
 		public void InitUtils()
@@ -126,12 +131,18 @@ namespace RekdEngine.Core
 			LoadAddons();
 			BeforeLoop();
 			PrepareRender();
-			DoFormLoop(handle, () => { return Closed; }, MainLoop);
+			Console.WriteLine("Started MainLoop");
+			DoFormLoop(handle, () => { return !Closed; }, MainLoop);
+			Console.WriteLine("Stopped MainLoop");
 		}
 
-		public virtual void BeforeLoop();
+		public virtual void BeforeLoop()
+		{
+		}
 
-		public virtual void InitVars();
+		public virtual void InitVars()
+		{
+		}
 
 		public void PresentRendertarget()
 		{
