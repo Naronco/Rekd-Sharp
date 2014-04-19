@@ -1,4 +1,6 @@
-﻿using RekdEngine.Event;
+﻿using RekdEngine.Debug;
+using RekdEngine.Event;
+using RekdEngine.UtilMath;
 using SlimDX;
 using SlimDX.Direct3D9;
 using SlimDX.Windows;
@@ -46,9 +48,11 @@ namespace RekdEngine.Core
 			Device = new Device(Direct3D, 0, DeviceType.Hardware, Window.Handle, CreateFlags.HardwareVertexProcessing, new PresentParameters()
 			{
 				BackBufferWidth = Window.ClientSize.Width,
-				BackBufferHeight = Window.ClientSize.Height
+				BackBufferHeight = Window.ClientSize.Height,
+				Multisample = MultisampleType.EightSamples
 			});
 			Window.Location = new Point(Screen.PrimaryScreen.Bounds.Width / 2 - Window.Width / 2, Screen.PrimaryScreen.Bounds.Height / 2 - Window.Height / 2);
+			Device.SetTransform(TransformState.Projection, Matrix.PerspectiveFovLH(MathExt.ToRadians(45.0f), Window.Width / (float)Window.Height, 0.01f, 1000.0f));
 		}
 
 		public RenderForm CreateWindowHandle(string title, int width, int height)
@@ -58,12 +62,17 @@ namespace RekdEngine.Core
 				ClientSize = new Size(width, height)
 			};
 			handle.Hide();
+			handle.FormBorderStyle = FormBorderStyle.FixedSingle;
+			handle.MaximizeBox = false;
 			WindowState = handle.WindowState;
 
 			handle.MouseClick += (s, e) => { GameEventListener.RunClickEvent(handle, e); };
 			handle.KeyDown += (s, e) => { GameEventListener.RunKeyDownEvent(handle, e); };
 			handle.KeyUp += (s, e) => { GameEventListener.RunKeyUpEvent(handle, e); };
-			handle.ResizeEnd += (s, e) => { GameEventListener.RunResizeEvent(handle, new Size(handle.Width, handle.Height)); };
+			handle.UserResized += (s, e) =>
+			{
+				GameEventListener.RunResizeEvent(handle, new Size(handle.Width, handle.Height));
+			};
 			handle.FormClosing += (s, e) => { GameEventListener.RunPreCloseEvent(handle, e); };
 			handle.FormClosed += (s, e) => { Closed = true; };
 
@@ -119,7 +128,7 @@ namespace RekdEngine.Core
 
 		public void DoMainLoop()
 		{
-			Console.WriteLine("Started Game using Rekd#");
+			DebugWrite.Log("Started Game using Rekd#");
 			Stopwatch sw = Stopwatch.StartNew();
 			CreateWindow();
 			InitDX();
@@ -129,9 +138,9 @@ namespace RekdEngine.Core
 			BeforeLoop();
 			PrepareRender();
 			sw.Stop();
-			Console.WriteLine("Initialized in " + sw.Elapsed.ToString());
+			DebugWrite.Log("Initialized in " + sw.Elapsed.ToString());
 			DoFormLoop(Window, () => { return !Closed; }, MainLoop);
-			Console.WriteLine("Stopped Game");
+			DebugWrite.Log("Stopped Game");
 		}
 
 		public virtual void BeforeLoop()

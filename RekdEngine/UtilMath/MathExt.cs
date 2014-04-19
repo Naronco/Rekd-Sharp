@@ -20,5 +20,15 @@ namespace RekdEngine.UtilMath
 				res = res * i;
 			return res;
 		}
+
+		public static float ToRadians(float deg)
+		{
+			return deg * 0.0174532925f;
+		}
+
+		public static float ToDegrees(float rad)
+		{
+			return rad * 57.2957795f;
+		}
 	}
 }

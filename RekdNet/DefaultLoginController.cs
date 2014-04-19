@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RekdEngine.Debug;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -52,7 +53,7 @@ namespace RekdNet
 		public void Login(string username, string password)
 		{
 			string rsa = rsaProvider.ToXmlString(false);
-			Console.WriteLine(rsa);
+			DebugWrite.Log(rsa);
 			string serverKey = HttpPost("ShareKeys", new Dictionary<string, string> { { "RSA", rsa } });
 			serverRsa.FromXmlString(serverKey);
 		}
@@ -63,7 +64,6 @@ namespace RekdNet
 			request.Method = "POST";
 			request.ContentType = "application/x-www-form-urlencoded";
 
-			//string postData = "home=Cosby&favorite+flavor=flies";
 			var postData = string.Join("&", (from keyval in Parameters let str = HttpUtility.HtmlEncode(keyval.Key) + "=" + HttpUtility.HtmlEncode(keyval.Value) select str));
 			byte[] bytes = Encoding.UTF8.GetBytes(postData);
 			request.ContentLength = bytes.Length;
