@@ -163,12 +163,20 @@ namespace RekdEngine.Core
 			this.A = A;
 		}
 
-		public Color(ulong argb)
+		public Color(uint argb)
 		{
 			A = (byte)((argb & 0xFF000000) >> 24);
 			R = (byte)((argb & 0xFF0000) >> 16);
 			G = (byte)((argb & 0xFF00) >> 8);
 			B = (byte)((argb & 0xFF));
+		}
+
+		public Color(int rgb)
+		{
+			A = 255;
+			R = (byte)((rgb & 0xFF0000) >> 16);
+			G = (byte)((rgb & 0xFF00) >> 8);
+			B = (byte)((rgb & 0xFF));
 		}
 
 		public override string ToString()
@@ -189,6 +197,11 @@ namespace RekdEngine.Core
 		public System.Drawing.Color AsSystem()
 		{
 			return System.Drawing.Color.FromArgb(A, R, G, B);
+		}
+
+		public int ToArgb()
+		{
+			return (A << 24) | (R << 16) | (G << 8) | B;
 		}
 	}
 }
