@@ -1,4 +1,5 @@
-﻿using SlimDX;
+﻿using RekdEngine.Debug;
+using SlimDX;
 using SlimDX.Windows;
 using System;
 using System.Collections.Generic;
@@ -51,6 +52,7 @@ namespace RekdEngine.Core
 			};
 			DoMainLoop();
 			Unload();
+			DebugWrite.Save();
 		}
 
 		public override void BeforeLoop()
