@@ -1,12 +1,11 @@
 ﻿using RekdEngine.Debug;
-using SlimDX;
-using SlimDX.Windows;
+using SharpDX;
+using SharpDX.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using D2D = SlimDX.Direct2D;
 
 namespace RekdEngine.Core
 {

@@ -4,7 +4,7 @@ using RekdEngine.Debug;
 using RekdEngine.Event;
 using RekdEngine.Render;
 using RekdEngine.UtilMath;
-using SlimDX.Direct3D9;
+using SharpDX.Direct3D9;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -78,7 +78,7 @@ namespace RekdTest
 		{
 			Clear(new Color(43, 78, 124));
 			BeginScene();
-			Device.SetTransform(TransformState.Projection, SlimDX.Matrix.Identity);
+			Device.SetTransform(TransformState.Projection, SharpDX.Matrix.Identity);
 
 			//Device.SetTransform(TransformState.World, SlimDX.Matrix.Translation(1, 0, 0));
 			effect.Begin();

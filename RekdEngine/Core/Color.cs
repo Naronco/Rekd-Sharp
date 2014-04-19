@@ -184,14 +184,19 @@ namespace RekdEngine.Core
 			return "{R: " + R + ", G: " + G + ", B: " + B + ", A: " + A + "}";
 		}
 
-		public SlimDX.Color4 AsSlimDX4()
+		public SharpDX.Color4 AsSharpDX4()
 		{
-			return new SlimDX.Color4(A / 255.0f, R / 255.0f, G / 255.0f, B / 255.0f);
+			return new SharpDX.Color4(A / 255.0f, R / 255.0f, G / 255.0f, B / 255.0f);
 		}
 
-		public SlimDX.Color4 AsSlimDX3()
+		public SharpDX.ColorBGRA AsSharpDXBGRA()
 		{
-			return new SlimDX.Color4(R / 255.0f, G / 255.0f, B / 255.0f);
+			return new SharpDX.ColorBGRA(R, G, B, A);
+		}
+
+		public SharpDX.Color3 AsSharpDX3()
+		{
+			return new SharpDX.Color3(R / 255.0f, G / 255.0f, B / 255.0f);
 		}
 
 		public System.Drawing.Color AsSystem()

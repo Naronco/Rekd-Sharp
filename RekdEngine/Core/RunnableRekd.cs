@@ -1,9 +1,9 @@
 ﻿using RekdEngine.Debug;
 using RekdEngine.Event;
 using RekdEngine.UtilMath;
-using SlimDX;
-using SlimDX.Direct3D9;
-using SlimDX.Windows;
+using SharpDX;
+using SharpDX.Direct3D9;
+using SharpDX.Windows;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -45,16 +45,14 @@ namespace RekdEngine.Core
 		public void InitDX()
 		{
 			Direct3D = new Direct3D();
-			Device = new Device(Direct3D, 0, DeviceType.Hardware, Window.Handle, CreateFlags.HardwareVertexProcessing, new PresentParameters()
+			Device = new Device(Direct3D, 0, DeviceType.Hardware, Window.Handle, CreateFlags.HardwareVertexProcessing, new PresentParameters(Window.ClientSize.Width, Window.ClientSize.Height)
 			{
-				BackBufferWidth = Window.ClientSize.Width,
-				BackBufferHeight = Window.ClientSize.Height,
-				Multisample = MultisampleType.EightSamples
+				MultiSampleType = MultisampleType.EightSamples
 			});
 			Device.SetSamplerState(0, SamplerState.MinFilter, (float)TextureFilter.Anisotropic);
 			Device.SetSamplerState(0, SamplerState.MagFilter, (float)TextureFilter.Anisotropic);
 			Device.SetSamplerState(0, SamplerState.MipFilter, (float)TextureFilter.Anisotropic);
-			Window.Location = new Point(Screen.PrimaryScreen.Bounds.Width / 2 - Window.Width / 2, Screen.PrimaryScreen.Bounds.Height / 2 - Window.Height / 2);
+			Window.Location = new System.Drawing.Point(Screen.PrimaryScreen.Bounds.Width / 2 - Window.Width / 2, Screen.PrimaryScreen.Bounds.Height / 2 - Window.Height / 2);
 			Device.SetTransform(TransformState.Projection, Matrix.PerspectiveFovLH(MathExt.ToRadians(45.0f), Window.Width / (float)Window.Height, 0.01f, 1000.0f));
 		}
 
@@ -66,8 +64,6 @@ namespace RekdEngine.Core
 			};
 			handle.Hide();
 
-			//handle.FormBorderStyle = FormBorderStyle.FixedSingle;
-			handle.MaximizeBox = false;
 			WindowState = handle.WindowState;
 
 			handle.MouseClick += (s, e) => { GameEventListener.RunClickEvent(handle, e); };
@@ -76,11 +72,9 @@ namespace RekdEngine.Core
 			handle.UserResized += (s, e) =>
 			{
 				GameEventListener.RunResizeEvent(handle, new Size(handle.Width, handle.Height));
-				Device.Reset(new PresentParameters()
+				Device.Reset(new PresentParameters(Window.ClientSize.Width, Window.ClientSize.Height)
 				{
-					BackBufferWidth = handle.ClientSize.Width,
-					BackBufferHeight = handle.ClientSize.Height,
-					Multisample = MultisampleType.EightSamples
+					MultiSampleType = MultisampleType.EightSamples
 				});
 				GameEventListener.RunDeviceResetEvent(handle, Device);
 			};
@@ -119,7 +113,7 @@ namespace RekdEngine.Core
 
 		public void Clear(Color c)
 		{
-			Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, c.AsSlimDX4(), 1.0f, 0);
+			Device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, c.AsSharpDXBGRA(), 1.0f, 0);
 		}
 
 		public TimeSpan CalculateDelta()
@@ -129,7 +123,7 @@ namespace RekdEngine.Core
 
 		public void DoFormLoop(Form f, Func<bool> isOpen, Action doStuff)
 		{
-			MessagePump.Run(f, () =>
+			RenderLoop.Run(f, () =>
 			{
 				if (!isOpen()) return;
 				Clear(new Color(43, 78, 124));
@@ -179,8 +173,9 @@ namespace RekdEngine.Core
 
 		public void Dispose()
 		{
-			foreach (var item in ObjectTable.Objects)
-				item.Dispose();
+			Device.Dispose();
+			Direct3D.Dispose();
+			Window.Dispose();
 		}
 	}
 }
