@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SlimDX.Direct3D9;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace RekdEngine.Event
 
 		public static event CloseEvent CloseEvent;
 
+		public static event DeviceResetEvent DeviceResetEvent;
+
 		public static void RunClickEvent(Form Window, MouseEventArgs e)
 		{
 			if (ClickEvent != null) ClickEvent(Window, e);
@@ -38,6 +41,11 @@ namespace RekdEngine.Event
 		public static void RunResizeEvent(Form Window, Size e)
 		{
 			if (ResizeEvent != null) ResizeEvent(Window, e);
+		}
+
+		public static void RunDeviceResetEvent(Form Window, Device e)
+		{
+			if (DeviceResetEvent != null) DeviceResetEvent(Window, e);
 		}
 
 		public static void RunPreCloseEvent(Form Window, FormClosingEventArgs e)

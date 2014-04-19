@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SlimDX.Direct3D9;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -17,4 +18,6 @@ namespace RekdEngine.Event
 	public delegate void ResizeEvent(Form Window, Size e);
 
 	public delegate void CloseEvent(Form Window, FormClosingEventArgs e);
+
+	public delegate void DeviceResetEvent(Form Window, Device d);
 }

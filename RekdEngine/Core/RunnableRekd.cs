@@ -51,6 +51,9 @@ namespace RekdEngine.Core
 				BackBufferHeight = Window.ClientSize.Height,
 				Multisample = MultisampleType.EightSamples
 			});
+			Device.SetSamplerState(0, SamplerState.MinFilter, (float)TextureFilter.Anisotropic);
+			Device.SetSamplerState(0, SamplerState.MagFilter, (float)TextureFilter.Anisotropic);
+			Device.SetSamplerState(0, SamplerState.MipFilter, (float)TextureFilter.Anisotropic);
 			Window.Location = new Point(Screen.PrimaryScreen.Bounds.Width / 2 - Window.Width / 2, Screen.PrimaryScreen.Bounds.Height / 2 - Window.Height / 2);
 			Device.SetTransform(TransformState.Projection, Matrix.PerspectiveFovLH(MathExt.ToRadians(45.0f), Window.Width / (float)Window.Height, 0.01f, 1000.0f));
 		}
@@ -62,7 +65,8 @@ namespace RekdEngine.Core
 				ClientSize = new Size(width, height)
 			};
 			handle.Hide();
-			handle.FormBorderStyle = FormBorderStyle.FixedSingle;
+
+			//handle.FormBorderStyle = FormBorderStyle.FixedSingle;
 			handle.MaximizeBox = false;
 			WindowState = handle.WindowState;
 
@@ -72,6 +76,13 @@ namespace RekdEngine.Core
 			handle.UserResized += (s, e) =>
 			{
 				GameEventListener.RunResizeEvent(handle, new Size(handle.Width, handle.Height));
+				Device.Reset(new PresentParameters()
+				{
+					BackBufferWidth = handle.ClientSize.Width,
+					BackBufferHeight = handle.ClientSize.Height,
+					Multisample = MultisampleType.EightSamples
+				});
+				GameEventListener.RunDeviceResetEvent(handle, Device);
 			};
 			handle.FormClosing += (s, e) => { GameEventListener.RunPreCloseEvent(handle, e); };
 			handle.FormClosed += (s, e) => { Closed = true; };

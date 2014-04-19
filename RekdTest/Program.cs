@@ -18,7 +18,7 @@ namespace RekdTest
 		{
 			using (Game1 game = new Game1())
 			{
-				game.Run("Rekd Test", 800, 480);
+				game.Run("Rekd Test", 1200, 675);
 			}
 		}
 	}

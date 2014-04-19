@@ -24,17 +24,30 @@ namespace RekdTest
 
 		public override void Init()
 		{
+			GameEventListener.ResizeEvent += GameEventListener_ResizeEvent;
+			GameEventListener.DeviceResetEvent += GameEventListener_DeviceResetEvent;
+		}
+
+		private void GameEventListener_DeviceResetEvent(Form Window, Device d)
+		{
+			effect.OnResetDevice();
+		}
+
+		private void GameEventListener_ResizeEvent(Form Window, System.Drawing.Size e)
+		{
+			effect.OnLostDevice();
 		}
 
 		public override void Load()
 		{
-			tex = Texture.FromFile(Device, Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "example.dds"));
-			tex.AutoMipGenerationFilter = TextureFilter.GaussianQuad;
-			tex.GenerateMipSublevels();
+			tex = Texture.FromFile(Device, Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "example.dds"), Usage.None, Pool.Managed);
+
+			//tex.AutoMipGenerationFilter = TextureFilter.Anisotropic;
+			//tex.GenerateMipSublevels();
 			vertices = new VertexBuffer(Device, 3 * 28, Usage.WriteOnly, VertexFormat.None, Pool.Managed);
 			vertices.Lock(0, 0, LockFlags.None).WriteRange(new[]
 			{
-				new VertexPositionTextureColor() { Color = Color.White.ToArgb(), Position = new Vector4f(-1, -1, 0.0f, 1.0f), TexCoord = new Vector2f(0.0f, 1.0f) },
+				new VertexPositionTextureColor() { Color = Color.White.ToArgb(), Position = new Vector4f(-0.5f, -1, 0.0f, 1.0f), TexCoord = new Vector2f(0.0f, 1.0f) },
 				new VertexPositionTextureColor() { Color = Color.White.ToArgb(), Position = new Vector4f(0, 1, 0.0f, 1.0f), TexCoord = new Vector2f(0.5f, 0.0f) },
 				new VertexPositionTextureColor() { Color = Color.White.ToArgb(), Position = new Vector4f(1, -1, 0.0f, 1.0f), TexCoord = new Vector2f(1.0f, 1.0f) }
 			});
@@ -74,6 +87,7 @@ namespace RekdTest
 			Device.SetStreamSource(0, vertices, 0, 28);
 			Device.VertexDeclaration = VertexDecl;
 			Device.DrawPrimitives(PrimitiveType.TriangleList, 0, 1);
+
 			effect.EndPass();
 			effect.End();
 			EndScene();
