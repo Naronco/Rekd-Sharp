@@ -1,4 +1,5 @@
-﻿using RekdEngine.Debug;
+﻿using RekdEngine.Content;
+using RekdEngine.Debug;
 using SharpDX;
 using SharpDX.Windows;
 using System;
@@ -63,5 +64,7 @@ namespace RekdEngine.Core
 		{
 			Init();
 		}
+
+		protected ContentManager Content { get; set; }
 	}
 }

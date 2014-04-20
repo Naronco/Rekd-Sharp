@@ -60,6 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Content\ContentManager.cs" />
+    <Compile Include="Content\Effect.cs" />
+    <Compile Include="Content\NonManagedRessource.cs" />
+    <Compile Include="Content\Texture2D.cs" />
     <Compile Include="Core\Color.cs" />
     <Compile Include="Core\Extension.cs" />
     <Compile Include="Core\RunnableRekd.cs" />
@@ -67,6 +70,7 @@
     <Compile Include="Debug\DebugWrite.cs" />
     <Compile Include="Event\Events.cs" />
     <Compile Include="Event\GameEventListener.cs" />
+    <Compile Include="Render\SpriteBatch.cs" />
     <Compile Include="Render\VertexPositionColor.cs" />
     <Compile Include="Render\VertexPositionTextureColor.cs" />
     <Compile Include="UtilMath\Algorithm\BezierCurve.cs" />
