@@ -44,8 +44,7 @@ namespace RekdEngine.Content
 		{
 			if (typeof(T) == typeof(Texture2D))
 			{
-				Texture2D tex = new Texture2D();
-				tex.FromFile(device, cdir + path);
+				Texture2D tex = new Texture2D(device, cdir + path);
 				return (T)(object)tex;
 			}
 			else if (typeof(T) == typeof(Effect))

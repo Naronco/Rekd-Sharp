@@ -2,17 +2,21 @@
 using SharpDX.Direct3D9;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace RekdEngine.Content
 {
 	public class Texture2D
 	{
-		private Texture handle;
+		internal Texture handle;
 
 		public int Width, Height;
+
+		private Device Device;
 
 		public Texture2D()
 		{
@@ -25,14 +29,16 @@ namespace RekdEngine.Content
 			handle = new Texture(d, width, height, 1, Usage.None, Format.A8R8G8B8, Pool.Managed);
 			Width = width;
 			Height = height;
+			Device = d;
 		}
 
-		public void FromFile(Device d, string file)
+		public Texture2D(Device d, string file)
 		{
-			handle = Texture.FromFile(d, file, Usage.None, Pool.Managed);
+			handle = Texture.FromFile(d, Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), file), Usage.None, Pool.Managed);
 			ImageInformation i = ImageInformation.FromFile(file);
 			Width = i.Width;
 			Height = i.Height;
+			Device = d;
 		}
 
 		public void SetColors(Color[] c)
@@ -41,6 +47,11 @@ namespace RekdEngine.Content
 			{
 				return c[(int)(coord.X + Width * coord.Y)].AsSharpDX4();
 			});
+		}
+
+		public void Bind(int slot)
+		{
+			Device.SetTexture(slot, handle);
 		}
 	}
 }

@@ -31,5 +31,30 @@ namespace RekdEngine.Content
 		{
 			handle.Dispose();
 		}
+
+		public void Begin()
+		{
+			handle.Begin();
+		}
+
+		public void BeginPass(int pass)
+		{
+			handle.BeginPass(pass);
+		}
+
+		public void EndPass()
+		{
+			handle.EndPass();
+		}
+
+		public void End()
+		{
+			handle.End();
+		}
+
+		public void SetTexture(string name, Texture2D tex)
+		{
+			handle.SetTexture(name, tex.handle);
+		}
 	}
 }

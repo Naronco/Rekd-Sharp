@@ -1,5 +1,6 @@
 ﻿using RekdEngine.Content;
 using RekdEngine.Debug;
+using RekdEngine.Render;
 using SharpDX;
 using SharpDX.Windows;
 using System;
@@ -63,8 +64,11 @@ namespace RekdEngine.Core
 		public override void InitVars()
 		{
 			Init();
+			Content = new ContentManager(Device);
 		}
 
 		protected ContentManager Content { get; set; }
+
+		protected SpriteBatch SpriteBatch { get; set; }
 	}
 }
