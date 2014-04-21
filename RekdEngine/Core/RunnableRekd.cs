@@ -60,7 +60,8 @@ namespace RekdEngine.Core
 		{
 			RenderForm handle = new RenderForm(title)
 			{
-				ClientSize = new Size(width, height)
+				ClientSize = new Size(width, height),
+				MinimumSize = new Size(0, 0)
 			};
 			handle.Hide();
 
@@ -72,7 +73,7 @@ namespace RekdEngine.Core
 			handle.UserResized += (s, e) =>
 			{
 				GameEventListener.RunResizeEvent(handle, new Size(handle.Width, handle.Height));
-				Device.Reset(new PresentParameters(Window.ClientSize.Width, Window.ClientSize.Height)
+				Device.Reset(new PresentParameters(Window.ClientSize.Width, Math.Max(1, Window.ClientSize.Height))
 				{
 					MultiSampleType = MultisampleType.EightSamples
 				});
