@@ -3,6 +3,7 @@ using SharpDX.Direct3D9;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,6 +43,8 @@ namespace RekdEngine.Content
 
 		public T Load<T>(string path)
 		{
+			if (!File.Exists(cdir + path))
+				throw new FileNotFoundException(cdir + path);
 			if (typeof(T) == typeof(Texture2D))
 			{
 				Texture2D tex = new Texture2D(device, cdir + path);
