@@ -53,5 +53,10 @@ namespace RekdEngine.Content
 		{
 			Device.SetTexture(slot, handle);
 		}
+
+		public Surface GetSurfaceLevel(int level)
+		{
+			return handle.GetSurfaceLevel(level);
+		}
 	}
 }

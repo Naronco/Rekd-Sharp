@@ -28,7 +28,7 @@ namespace RekdTest
 		private D3D.VertexDeclaration cubeDecl;
 		private D3D.VertexBuffer cubeVert;
 		private D3D.Surface backBuffer;
-		private D3D.Texture renderTexture;
+		private Texture2D renderTexture;
 
 		public override void Init()
 		{
@@ -40,6 +40,7 @@ namespace RekdTest
 			tex2 = Content.Load<Texture2D>("mask.dds");
 			effect = Content.Load<Effect>("example.fx");
 			postProc = Content.Load<Effect>("post.fx");
+			renderTexture = new Texture2D(Device, 1200, 675);
 
 			//tex.AutoMipGenerationFilter = TextureFilter.Anisotropic;
 			//tex.GenerateMipSublevels();
@@ -65,8 +66,9 @@ namespace RekdTest
 			cubeVert = new D3D.VertexBuffer(Device, 3 * 28, D3D.Usage.WriteOnly, D3D.VertexFormat.None, D3D.Pool.Managed);
 			cubeVert.Lock(0, 0, D3D.LockFlags.None).WriteRange(new[]
 			{
-				new VertexPositionTextureColor() { Color = Color.White.ToArgb(), Position = new Vector4f(-0.5f, -1, 0.0f, 1.0f), TexCoord = new Vector2f(0.0f, 1.0f) },
-				new VertexPositionTextureColor() { Color = Color.White.ToArgb(), Position = new Vector4f(0, 1, 0.0f, 1.0f), TexCoord = new Vector2f(0.5f, 0.0f) },
+				new VertexPositionTextureColor() { Color = Color.White.ToArgb(), Position = new Vector4f(-1, -1, 0.0f, 1.0f), TexCoord = new Vector2f(0.0f, 1.0f) },
+				new VertexPositionTextureColor() { Color = Color.White.ToArgb(), Position = new Vector4f(-1, 1, 0.0f, 1.0f), TexCoord = new Vector2f(0.0f, 0.0f) },
+				new VertexPositionTextureColor() { Color = Color.White.ToArgb(), Position = new Vector4f(1, 1, 0.0f, 1.0f), TexCoord = new Vector2f(1.0f, 0.0f) },
 				new VertexPositionTextureColor() { Color = Color.White.ToArgb(), Position = new Vector4f(1, -1, 0.0f, 1.0f), TexCoord = new Vector2f(1.0f, 1.0f) }
 			});
 			cubeVert.Unlock();
@@ -114,13 +116,26 @@ namespace RekdTest
 			effect.EndPass();
 			effect.End();
 			EndScene();
-			Device.SetRenderTarget(0, null);
+
+			postProc.SetTexture("screen", renderTexture);
+
+			Device.SetRenderTarget(0, backBuffer);
+			Device.Clear(D3D.ClearFlags.Target, Color.Black.AsSharpDXBGRA(), 1.0f, 0);
+			Device.Clear(D3D.ClearFlags.ZBuffer, Color.Black.AsSharpDXBGRA(), 1.0f, 0);
 
 			BeginScene();
-			Device.SetTexture(0, surface.);
+
+			postProc.Begin();
+			postProc.BeginPass(0);
+
+			Device.SetStreamSource(0, cubeVert, 0, 28);
+			Device.VertexDeclaration = cubeDecl;
+			Device.DrawPrimitives(D3D.PrimitiveType.TriangleStrip, 0, 2);
+
+			postProc.EndPass();
+			postProc.End();
 
 			EndScene();
-			postProc.SetTexture("", )
 		}
 	}
 }
