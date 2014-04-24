@@ -25,12 +25,8 @@ namespace RekdTest
 		private Texture2D tex;
 		private Texture2D tex2;
 		private Effect effect;
-		private Effect postProc;
-		private D3D.Surface surface;
 		private D3D.VertexDeclaration cubeDecl;
 		private D3D.VertexBuffer cubeVert;
-		private D3D.Surface backBuffer;
-		private Texture2D renderTexture;
 
 		public override void Init()
 		{
@@ -41,8 +37,6 @@ namespace RekdTest
 			tex = Content.Load<Texture2D>("example.dds");
 			tex2 = Content.Load<Texture2D>("mask.dds");
 			effect = Content.Load<Effect>("example.fx");
-			postProc = Content.Load<Effect>("post.fx");
-			renderTexture = new Texture2D(Device, 1200, 675, D3D.Usage.RenderTarget);
 
 			//tex.AutoMipGenerationFilter = TextureFilter.Anisotropic;
 			//tex.GenerateMipSublevels();
@@ -65,7 +59,7 @@ namespace RekdTest
 
 			VertexDecl = new D3D.VertexDeclaration(Device, vertexElems);
 
-			cubeVert = new D3D.VertexBuffer(Device, 3 * 28, D3D.Usage.WriteOnly, D3D.VertexFormat.None, D3D.Pool.Managed);
+			cubeVert = new D3D.VertexBuffer(Device, 4 * 28, D3D.Usage.WriteOnly, D3D.VertexFormat.None, D3D.Pool.Managed);
 			cubeVert.Lock(0, 0, D3D.LockFlags.None).WriteRange(new[]
 			{
 				new VertexPositionTextureColor() { Color = Color.White.ToArgb(), Position = new Vector4f(-1, -1, 0.0f, 1.0f), TexCoord = new Vector2f(0.0f, 1.0f) },
@@ -95,8 +89,6 @@ namespace RekdTest
 			tex.Dispose();
 			tex2.Dispose();
 			effect.Dispose();
-			postProc.Dispose();
-			renderTexture.Dispose();
 		}
 
 		public override void Update(TimeSpan delta)
@@ -105,34 +97,7 @@ namespace RekdTest
 
 		public override void Render(TimeSpan delta)
 		{
-			/*backBuffer = Device.GetRenderTarget(0);
-			surface = renderTexture.GetSurfaceLevel(0);
-			Device.SetRenderTarget(0, surface);
-			Device.Clear(D3D.ClearFlags.Target, new Color(43, 78, 124).AsSharpDXBGRA(), 1.0f, 0);
-			Device.Clear(D3D.ClearFlags.ZBuffer, new Color(43, 78, 124).AsSharpDXBGRA(), 1.0f, 0);
-			BeginScene();
-			Device.SetTransform(D3D.TransformState.Projection, SharpDX.Matrix.Identity);
-
-			//Device.SetTransform(D3D.TransformState.World, SharpDX.Matrix.Translation(0, 1, 0));
-			effect.Begin();
-			effect.BeginPass(0);
-			tex.Bind(0);
-			tex2.Bind(1);
-			Device.SetStreamSource(0, vertices, 0, 28);
-			Device.VertexDeclaration = VertexDecl;
-			Device.DrawPrimitives(D3D.PrimitiveType.TriangleList, 0, 1);
-
-			effect.EndPass();
-			effect.End();
-			EndScene();*/
-
-			/*postProc.SetTexture("screen", renderTexture);
-
-			Device.SetRenderTarget(0, backBuffer);
-			Device.Clear(D3D.ClearFlags.Target, new Color(43, 78, 124).AsSharpDXBGRA(), 1.0f, 0);
-			Device.Clear(D3D.ClearFlags.ZBuffer, new Color(43, 78, 124).AsSharpDXBGRA(), 1.0f, 0);
-
-			*/
+			Clear(new Color(43, 78, 124));
 
 			SDX.Matrix proj = Device.GetTransform(D3D.TransformState.Projection);
 			SDX.Matrix view = Device.GetTransform(D3D.TransformState.View);
@@ -157,7 +122,7 @@ namespace RekdTest
 			effect.EndPass();
 			effect.End();
 
-			EndScene();/**/
+			EndScene();
 		}
 	}
 }

@@ -54,6 +54,11 @@ namespace RekdEngine.Content
 			handle.End();
 		}
 
+		public void NativeSetTexture(string name, BaseTexture tex)
+		{
+			handle.SetTexture(name, tex);
+		}
+
 		public void SetTexture(string name, Texture2D tex)
 		{
 			handle.SetTexture(name, tex.handle);

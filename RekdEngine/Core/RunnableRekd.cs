@@ -49,9 +49,6 @@ namespace RekdEngine.Core
 			{
 				MultiSampleType = MultisampleType.EightSamples
 			});
-			Device.SetSamplerState(0, SamplerState.MinFilter, (float)TextureFilter.Anisotropic);
-			Device.SetSamplerState(0, SamplerState.MagFilter, (float)TextureFilter.Anisotropic);
-			Device.SetSamplerState(0, SamplerState.MipFilter, (float)TextureFilter.Anisotropic);
 			Window.Location = new System.Drawing.Point(Screen.PrimaryScreen.Bounds.Width / 2 - Window.Width / 2, Screen.PrimaryScreen.Bounds.Height / 2 - Window.Height / 2);
 			Device.SetTransform(TransformState.Projection, Matrix.PerspectiveFovLH(MathExt.ToRadians(45.0f), Window.Width / (float)Window.Height, 0.01f, 1000.0f));
 		}
