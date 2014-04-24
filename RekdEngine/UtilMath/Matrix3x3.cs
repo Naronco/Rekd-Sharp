@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharpDX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -142,6 +143,19 @@ namespace RekdEngine.UtilMath
 			M22 = Other.M22;
 		}
 
+		public Matrix3x3(Matrix3x2 Other)
+		{
+			M00 = Other.M11;
+			M01 = Other.M12;
+			M02 = 0;
+			M10 = Other.M21;
+			M11 = Other.M22;
+			M12 = 0;
+			M20 = Other.M31;
+			M21 = Other.M32;
+			M22 = 1;
+		}
+
 		public Matrix3x3 SetIdentity()
 		{
 			return Set(1, 0, 0, 0, 1, 0, 0, 0, 1);
@@ -229,6 +243,11 @@ namespace RekdEngine.UtilMath
 		public Vector2f GetTranslation()
 		{
 			return new Vector2f(M02, M12);
+		}
+
+		public Matrix3x2 AsSharpDX()
+		{
+			return new Matrix3x2(M00, M01, M10, M11, M20, M21);
 		}
 	}
 }

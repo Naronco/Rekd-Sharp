@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharpDX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -200,6 +201,26 @@ namespace RekdEngine.UtilMath
 			this.M33 = M33;
 		}
 
+		public Matrix4x4(Matrix Other)
+		{
+			M00 = Other.M11;
+			M01 = Other.M12;
+			M02 = Other.M13;
+			M03 = Other.M14;
+			M10 = Other.M21;
+			M11 = Other.M22;
+			M12 = Other.M23;
+			M13 = Other.M24;
+			M20 = Other.M31;
+			M21 = Other.M32;
+			M22 = Other.M33;
+			M23 = Other.M34;
+			M30 = Other.M41;
+			M31 = Other.M42;
+			M32 = Other.M43;
+			M33 = Other.M44;
+		}
+
 		public Matrix4x4(Matrix4x4 Other)
 		{
 			M00 = Other.M00;
@@ -315,6 +336,11 @@ namespace RekdEngine.UtilMath
 		public Matrix4x4 Transpose()
 		{
 			return Set(M00, M10, M20, M30, M01, M11, M21, M31, M02, M12, M22, M32, M03, M13, M23, M33);
+		}
+
+		public Matrix AsSharpDX()
+		{
+			return new Matrix(M00, M01, M02, M03, M10, M11, M12, M13, M20, M21, M22, M23, M30, M31, M32, M33);
 		}
 	}
 }
