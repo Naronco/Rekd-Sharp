@@ -62,6 +62,21 @@ namespace RekdEngine.Content
 			throw new NotSupportedException("Cannot load a " + typeof(T).Name);
 		}
 
+		public T LoadString<T>(string content)
+		{
+			if (typeof(T) == typeof(Texture2D))
+			{
+				throw new NotSupportedException("Cannot load an image from a string");
+			}
+			else if (typeof(T) == typeof(Effect))
+			{
+				Effect eff = new Effect(device, content, ShaderFlags.None);
+				resources.Add(eff);
+				return (T)(object)eff;
+			}
+			throw new NotSupportedException("Cannot load a " + typeof(T).Name);
+		}
+
 		public void Dispose()
 		{
 			foreach (NonManagedRessource r in resources)

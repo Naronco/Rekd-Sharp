@@ -19,6 +19,11 @@ namespace RekdEngine.Content
 			handle = Eff.FromFile(d, File, ShaderFlags.None);
 		}
 
+		internal Effect(Device d, string content, ShaderFlags s)
+		{
+			handle = Eff.FromString(d, content, s);
+		}
+
 		public void Reset()
 		{
 			handle.OnResetDevice();
@@ -72,6 +77,11 @@ namespace RekdEngine.Content
 		public void SetMatrix(string name, Matrix m)
 		{
 			handle.SetValue(name, m);
+		}
+
+		public void SetColor(string name, Core.Color c)
+		{
+			handle.SetValue(name, c.AsSharpDX4());
 		}
 
 		/*

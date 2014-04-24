@@ -50,7 +50,10 @@ namespace RekdEngine.Core
 				MultiSampleType = MultisampleType.EightSamples
 			});
 			Window.Location = new System.Drawing.Point(Screen.PrimaryScreen.Bounds.Width / 2 - Window.Width / 2, Screen.PrimaryScreen.Bounds.Height / 2 - Window.Height / 2);
-			Device.SetTransform(TransformState.Projection, Matrix.PerspectiveFovLH(MathExt.ToRadians(45.0f), Window.Width / (float)Window.Height, 0.01f, 1000.0f));
+			Device.SetTransform(TransformState.Projection, Matrix.OrthoLH(Window.ClientSize.Width, Window.ClientSize.Height, -1, 1));
+			Device.SetRenderState(RenderState.AlphaBlendEnable, true);
+			Device.SetRenderState(RenderState.SourceBlend, Blend.SourceAlpha);
+			Device.SetRenderState(RenderState.DestinationBlend, Blend.InverseSourceAlpha);
 		}
 
 		public RenderForm CreateWindowHandle(string title, int width, int height)
@@ -75,6 +78,7 @@ namespace RekdEngine.Core
 					MultiSampleType = MultisampleType.EightSamples
 				});
 				GameEventListener.RunDeviceResetEvent(handle, Device);
+				Device.SetTransform(TransformState.Projection, Matrix.OrthoLH(Window.ClientSize.Width, Window.ClientSize.Height, -1, 1));
 			};
 			handle.FormClosing += (s, e) => { GameEventListener.RunPreCloseEvent(handle, e); };
 			handle.FormClosed += (s, e) => { Closed = true; };
