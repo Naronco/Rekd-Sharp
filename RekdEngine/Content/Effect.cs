@@ -1,4 +1,6 @@
-﻿using SharpDX.Direct3D9;
+﻿using RekdEngine.UtilMath;
+using SharpDX;
+using SharpDX.Direct3D9;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,5 +58,81 @@ namespace RekdEngine.Content
 		{
 			handle.SetTexture(name, tex.handle);
 		}
+
+		public void SetMatrix(string name, Matrix4x4 m)
+		{
+			handle.SetValue(name, m.AsSharpDX());
+		}
+
+		public void SetMatrix(string name, Matrix m)
+		{
+			handle.SetValue(name, m);
+		}
+
+		/*
+		public Matrix4x4 this[string s]
+		{
+			get
+			{
+				return new Matrix4x4(handle.GetValue<Matrix>(s));
+			}
+
+			set
+			{
+				handle.SetValue<Matrix>(s, value.AsSharpDX());
+			}
+		}
+
+		public Matrix3x3 this[string s]
+		{
+			get
+			{
+				return new Matrix3x3(handle.GetValue<Matrix3x2>(s));
+			}
+
+			set
+			{
+				handle.SetValue<Matrix3x2>(s, value.AsSharpDX());
+			}
+		}
+
+		public Texture2D this[string s]
+		{
+			get
+			{
+				return new Texture2D((Texture)handle.GetTexture(s));
+			}
+
+			set
+			{
+				handle.SetTexture(s, value.handle);
+			}
+		}
+
+		public float this[string s]
+		{
+			get
+			{
+				return handle.GetValue<float>(s);
+			}
+
+			set
+			{
+				handle.SetValue<float>(s, value);
+			}
+		}
+
+		public string this[string s]
+		{
+			get
+			{
+				return handle.GetString(s);
+			}
+
+			set
+			{
+				handle.SetString(s, value);
+			}
+		}*/
 	}
 }

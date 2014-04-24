@@ -20,6 +20,7 @@ namespace RekdEngine.Content
 		protected Device device;
 
 		protected List<NonManagedRessource> resources;
+		protected List<IDisposable> disposables;
 
 		public ContentManager(Device device)
 		{
@@ -27,6 +28,7 @@ namespace RekdEngine.Content
 			GameEventListener.ResizeEvent += HandleDeviceLost;
 			GameEventListener.DeviceResetEvent += HandleDeviceReset;
 			resources = new List<NonManagedRessource>();
+			disposables = new List<IDisposable>();
 		}
 
 		protected void HandleDeviceReset(Form Window, Device d)
@@ -48,6 +50,7 @@ namespace RekdEngine.Content
 			if (typeof(T) == typeof(Texture2D))
 			{
 				Texture2D tex = new Texture2D(device, cdir + path);
+				resources.Add(tex);
 				return (T)(object)tex;
 			}
 			else if (typeof(T) == typeof(Effect))
@@ -62,6 +65,8 @@ namespace RekdEngine.Content
 		public void Dispose()
 		{
 			foreach (NonManagedRessource r in resources)
+				r.Dispose();
+			foreach (IDisposable r in disposables)
 				r.Dispose();
 		}
 	}

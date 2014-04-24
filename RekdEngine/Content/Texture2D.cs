@@ -10,13 +10,17 @@ using System.Windows.Forms;
 
 namespace RekdEngine.Content
 {
-	public class Texture2D
+	public class Texture2D : NonManagedRessource
 	{
 		internal Texture handle;
 
 		public int Width, Height;
 
 		private Device Device;
+
+		private bool managed;
+
+		private Usage manUsage;
 
 		public Texture2D()
 		{
@@ -30,6 +34,16 @@ namespace RekdEngine.Content
 			Width = width;
 			Height = height;
 			Device = d;
+			managed = true;
+		}
+
+		public Texture2D(Device d, int width, int height, Usage u)
+		{
+			handle = new Texture(d, width, height, 1, u, Format.A8R8G8B8, Pool.Default);
+			Width = width;
+			Height = height;
+			Device = d;
+			managed = false;
 		}
 
 		public Texture2D(Device d, string file)
@@ -39,6 +53,13 @@ namespace RekdEngine.Content
 			Width = i.Width;
 			Height = i.Height;
 			Device = d;
+			managed = true;
+		}
+
+		public Texture2D(Texture t)
+		{
+			handle = t;
+			managed = true;
 		}
 
 		public void SetColors(Color[] c)
@@ -57,6 +78,23 @@ namespace RekdEngine.Content
 		public Surface GetSurfaceLevel(int level)
 		{
 			return handle.GetSurfaceLevel(level);
+		}
+
+		public void Reset()
+		{
+			if (!managed)
+				handle = new Texture(Device, Width, Height, 1, manUsage, Format.A8R8G8B8, Pool.Default);
+		}
+
+		public void Lost()
+		{
+			if (!managed)
+				handle.Dispose();
+		}
+
+		public void Dispose()
+		{
+			handle.Dispose();
 		}
 	}
 }

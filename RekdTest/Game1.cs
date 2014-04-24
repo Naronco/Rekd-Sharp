@@ -14,6 +14,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using D3D = SharpDX.Direct3D9;
 
+using SDX = SharpDX;
+
 namespace RekdTest
 {
 	public class Game1 : Game
@@ -40,7 +42,7 @@ namespace RekdTest
 			tex2 = Content.Load<Texture2D>("mask.dds");
 			effect = Content.Load<Effect>("example.fx");
 			postProc = Content.Load<Effect>("post.fx");
-			renderTexture = new Texture2D(Device, 1200, 675);
+			renderTexture = new Texture2D(Device, 1200, 675, D3D.Usage.RenderTarget);
 
 			//tex.AutoMipGenerationFilter = TextureFilter.Anisotropic;
 			//tex.GenerateMipSublevels();
@@ -68,8 +70,8 @@ namespace RekdTest
 			{
 				new VertexPositionTextureColor() { Color = Color.White.ToArgb(), Position = new Vector4f(-1, -1, 0.0f, 1.0f), TexCoord = new Vector2f(0.0f, 1.0f) },
 				new VertexPositionTextureColor() { Color = Color.White.ToArgb(), Position = new Vector4f(-1, 1, 0.0f, 1.0f), TexCoord = new Vector2f(0.0f, 0.0f) },
-				new VertexPositionTextureColor() { Color = Color.White.ToArgb(), Position = new Vector4f(1, 1, 0.0f, 1.0f), TexCoord = new Vector2f(1.0f, 0.0f) },
-				new VertexPositionTextureColor() { Color = Color.White.ToArgb(), Position = new Vector4f(1, -1, 0.0f, 1.0f), TexCoord = new Vector2f(1.0f, 1.0f) }
+				new VertexPositionTextureColor() { Color = Color.White.ToArgb(), Position = new Vector4f(1, -1, 0.0f, 1.0f), TexCoord = new Vector2f(1.0f, 1.0f) },
+				new VertexPositionTextureColor() { Color = Color.White.ToArgb(), Position = new Vector4f(1, 1, 0.0f, 1.0f), TexCoord = new Vector2f(1.0f, 0.0f) }
 			});
 			cubeVert.Unlock();
 
@@ -86,6 +88,15 @@ namespace RekdTest
 
 		public override void Unload()
 		{
+			cubeDecl.Dispose();
+			cubeVert.Dispose();
+			VertexDecl.Dispose();
+			vertices.Dispose();
+			tex.Dispose();
+			tex2.Dispose();
+			effect.Dispose();
+			postProc.Dispose();
+			renderTexture.Dispose();
 		}
 
 		public override void Update(TimeSpan delta)
@@ -94,13 +105,11 @@ namespace RekdTest
 
 		public override void Render(TimeSpan delta)
 		{
-			Clear(new Color(43, 78, 124));
-
-			backBuffer = Device.GetRenderTarget(0);
+			/*backBuffer = Device.GetRenderTarget(0);
 			surface = renderTexture.GetSurfaceLevel(0);
 			Device.SetRenderTarget(0, surface);
-			Device.Clear(D3D.ClearFlags.Target, Color.Black.AsSharpDXBGRA(), 1.0f, 0);
-			Device.Clear(D3D.ClearFlags.ZBuffer, Color.Black.AsSharpDXBGRA(), 1.0f, 0);
+			Device.Clear(D3D.ClearFlags.Target, new Color(43, 78, 124).AsSharpDXBGRA(), 1.0f, 0);
+			Device.Clear(D3D.ClearFlags.ZBuffer, new Color(43, 78, 124).AsSharpDXBGRA(), 1.0f, 0);
 			BeginScene();
 			Device.SetTransform(D3D.TransformState.Projection, SharpDX.Matrix.Identity);
 
@@ -115,27 +124,40 @@ namespace RekdTest
 
 			effect.EndPass();
 			effect.End();
-			EndScene();
+			EndScene();*/
 
-			postProc.SetTexture("screen", renderTexture);
+			/*postProc.SetTexture("screen", renderTexture);
 
 			Device.SetRenderTarget(0, backBuffer);
-			Device.Clear(D3D.ClearFlags.Target, Color.Black.AsSharpDXBGRA(), 1.0f, 0);
-			Device.Clear(D3D.ClearFlags.ZBuffer, Color.Black.AsSharpDXBGRA(), 1.0f, 0);
+			Device.Clear(D3D.ClearFlags.Target, new Color(43, 78, 124).AsSharpDXBGRA(), 1.0f, 0);
+			Device.Clear(D3D.ClearFlags.ZBuffer, new Color(43, 78, 124).AsSharpDXBGRA(), 1.0f, 0);
+
+			*/
+
+			SDX.Matrix proj = Device.GetTransform(D3D.TransformState.Projection);
+			SDX.Matrix view = Device.GetTransform(D3D.TransformState.View);
+			SDX.Matrix world = Device.GetTransform(D3D.TransformState.World);
+
+			effect.SetMatrix("World", world);
+			effect.SetMatrix("View", view);
+			effect.SetMatrix("Projection", proj);
 
 			BeginScene();
+			Device.SetTransform(D3D.TransformState.Projection, SharpDX.Matrix.Identity);
 
-			postProc.Begin();
-			postProc.BeginPass(0);
+			effect.Begin();
+			effect.BeginPass(0);
 
+			tex.Bind(0);
+			tex2.Bind(1);
 			Device.SetStreamSource(0, cubeVert, 0, 28);
 			Device.VertexDeclaration = cubeDecl;
 			Device.DrawPrimitives(D3D.PrimitiveType.TriangleStrip, 0, 2);
 
-			postProc.EndPass();
-			postProc.End();
+			effect.EndPass();
+			effect.End();
 
-			EndScene();
+			EndScene();/**/
 		}
 	}
 }

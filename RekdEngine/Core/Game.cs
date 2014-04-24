@@ -53,6 +53,7 @@ namespace RekdEngine.Core
 			};
 			DoMainLoop();
 			Unload();
+			Content.Dispose();
 			DebugWrite.Save();
 		}
 
