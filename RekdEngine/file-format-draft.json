@@ -1,0 +1,19 @@
+{
+	"Name": "<human readable name>",
+	"Type": "(Mesh|Texture|Shader|Material|Object)",
+	// Material = Texture + Shader
+	// Object = Material + Mesh
+	"Mesh": "<path>",
+	"Textures": {
+		"<name>": "<path>",
+		"<name>": "<path>"
+	},
+	"Shader": {
+		"Variables": ["color"],
+		"Uses": {"type(World|View|Projection|TexelSize)": "shader_name(*)", "...": ""},
+		"Textures": {"<name>": "<shader_name>"},
+		"File": "<path>", // If defined, this will be used.
+		"Content": "<shader>"
+	}
+	// Saved as BSON
+}

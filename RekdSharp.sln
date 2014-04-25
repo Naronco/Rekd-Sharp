@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RekdTest", "RekdTest\RekdTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RekdNet", "RekdNet\RekdNet.csproj", "{67F515AD-E254-4601-A7C8-AC8FE10EE30D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RekdFileCompiler", "RekdFileCompiler\RekdFileCompiler.csproj", "{DE041229-A01A-4722-ACD7-AB48B03ADA53}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{67F515AD-E254-4601-A7C8-AC8FE10EE30D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67F515AD-E254-4601-A7C8-AC8FE10EE30D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67F515AD-E254-4601-A7C8-AC8FE10EE30D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE041229-A01A-4722-ACD7-AB48B03ADA53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE041229-A01A-4722-ACD7-AB48B03ADA53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE041229-A01A-4722-ACD7-AB48B03ADA53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE041229-A01A-4722-ACD7-AB48B03ADA53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
