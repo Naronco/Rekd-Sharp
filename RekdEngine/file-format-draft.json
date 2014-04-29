@@ -1,3 +1,4 @@
+1 or 0 // 1 = binary
 {
 	"Name": "<human readable name>",
 	"Type": "(Mesh|Texture|Shader|Material|Object)",
@@ -10,7 +11,6 @@
 	},
 	"Shader": {
 		"Variables": ["color"],
-		"Uses": {"type(World|View|Projection|TexelSize)": "shader_name(*)", "...": ""},
 		"Textures": {"<name>": "<shader_name>"},
 		"File": "<path>", // If defined, this will be used.
 		"Content": "<shader>"

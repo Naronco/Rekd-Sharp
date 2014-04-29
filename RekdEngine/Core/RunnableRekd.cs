@@ -50,6 +50,11 @@ namespace RekdEngine.Core
 				MultiSampleType = MultisampleType.EightSamples
 			});
 			Window.Location = new System.Drawing.Point(Screen.PrimaryScreen.Bounds.Width / 2 - Window.Width / 2, Screen.PrimaryScreen.Bounds.Height / 2 - Window.Height / 2);
+			ConfigDX();
+		}
+
+		public void ConfigDX()
+		{
 			Device.SetTransform(TransformState.Projection, Matrix.OrthoLH(Window.ClientSize.Width, Window.ClientSize.Height, -1, 1));
 			Device.SetRenderState(RenderState.AlphaBlendEnable, true);
 			Device.SetRenderState(RenderState.SourceBlend, Blend.SourceAlpha);
@@ -78,7 +83,7 @@ namespace RekdEngine.Core
 					MultiSampleType = MultisampleType.EightSamples
 				});
 				GameEventListener.RunDeviceResetEvent(handle, Device);
-				Device.SetTransform(TransformState.Projection, Matrix.OrthoLH(Window.ClientSize.Width, Window.ClientSize.Height, -1, 1));
+				ConfigDX();
 			};
 			handle.FormClosing += (s, e) => { GameEventListener.RunPreCloseEvent(handle, e); };
 			handle.FormClosed += (s, e) => { Closed = true; };

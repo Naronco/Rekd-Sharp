@@ -1,20 +1,8 @@
-﻿using RekdEngine;
-using RekdEngine.Content;
+﻿using RekdEngine.Content;
 using RekdEngine.Core;
-using RekdEngine.Debug;
-using RekdEngine.Event;
-using RekdEngine.Render;
+using RekdEngine.Physics;
 using RekdEngine.UtilMath;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using D3D = SharpDX.Direct3D9;
-
-using SDX = SharpDX;
 
 namespace RekdTest
 {
@@ -23,9 +11,51 @@ namespace RekdTest
 		private Texture2D tex;
 		private Texture2D tex2;
 
+		//private World world;
+
 		public override void Init()
 		{
+			//world = new World(new Vec2(0, -9.7f), true);
+			//CreateGround();
+			//CreateShape();
 		}
+
+		/*
+		public void CreateGround()
+		{
+			BodyDef groundBodyDef = new BodyDef();
+			groundBodyDef.Position = new Vec2(0, -10.0f);
+			Body groundBody = world.CreateBody(groundBodyDef);
+			PolygonShape groundBox = new PolygonShape();
+			groundBox.SetAsBox(50, 10);
+			groundBody.CreateFixture(groundBox, 0.0f);
+		}
+
+		public void CreateShape()
+		{
+			BodyDef bodyDef = new BodyDef();
+			bodyDef.BodyType = EBodyType.b2_dynamicBody;
+			bodyDef.Position = new Vec2(0, 4.0f);
+			Body body = world.CreateBody(bodyDef);
+			PolygonShape boxShape = new PolygonShape();
+			boxShape.SetAsBox(1, 1);
+			FixtureDef fixtureDef = new FixtureDef();
+			fixtureDef.Shape = boxShape;
+			fixtureDef.Density = 1.0f;
+			fixtureDef.Friction = 0.3f;
+
+			//new BoxShape(world, size, new ShapeDescription() { Density = 1.0f, Friction = 0.3f })
+
+			for (int i = 0; i < 100; ++i)
+			{
+				world.Step(1 / 60.0f, 6, 2);
+				Vec2 position = body.Position;
+				float angle = body.Angle;
+
+				Console.WriteLine("Step: {3} - X: {0}, Y: {1}, Angle: {2}", new object[] { position.x.ToString(), position.y.ToString(), angle.ToString(), i.ToString() });
+			}
+		}
+		*/
 
 		public override void Load()
 		{

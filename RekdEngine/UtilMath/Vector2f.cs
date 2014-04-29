@@ -133,5 +133,12 @@ namespace RekdEngine.UtilMath
 		{
 			return X * v.X - Y * v.Y;
 		}
+
+		public Vector2f SetZero()
+		{
+			X = 0;
+			Y = 0;
+			return this;
+		}
 	}
 }

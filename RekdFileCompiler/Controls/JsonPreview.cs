@@ -35,6 +35,7 @@ namespace RekdFileCompiler.Controls
 		public void SetJSON(string json)
 		{
 			codePreview.Clear();
+			codeLines.Clear();
 			bool isString = false;
 			bool isNumber = false;
 			bool doubleString = false;
@@ -112,11 +113,18 @@ namespace RekdFileCompiler.Controls
 
 				prev = c;
 			}
+
+			codeLines.SelectionAlignment = HorizontalAlignment.Right;
+			for (int i = 1; i <= codePreview.Lines.Length; i++)
+			{
+				codeLines.AppendText(i + "\n");
+			}
 		}
 
 		public void UpdateZoom()
 		{
 			zooms.Text = Math.Round(codePreview.ZoomFactor * 100) + " %";
+			codeLines.ZoomFactor = codePreview.ZoomFactor;
 		}
 
 		private void codePreview_KeyDown(object sender, KeyEventArgs e)
