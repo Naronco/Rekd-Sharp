@@ -1,0 +1,15 @@
+<string> FF FF
+For i=0 to vertexCount
+	<X>
+	<Y>
+	<Z>
+	<U>
+	<V>
+	<NX>
+	<NY>
+	<NZ>
+End
+FF FF
+For i=0 to triangleCount * 3
+	<ID>
+End

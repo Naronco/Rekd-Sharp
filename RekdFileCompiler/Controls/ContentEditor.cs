@@ -37,7 +37,7 @@ namespace RekdFileCompiler.Controls
 
 		public void SetJSON()
 		{
-			jsonPreview.SetJSON(Regex.Replace(JsonConvert.SerializeObject(file, Formatting.Indented, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore }).Replace("  ", "\t"), @",\s{2,}", ",\n\t"));
+			jsonPreview.SetJSON(JsonConvert.SerializeObject(file, Formatting.Indented, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore }).Replace("  ", "\t"));
 		}
 
 		public Panel CreateContainer(string name)
@@ -141,10 +141,40 @@ namespace RekdFileCompiler.Controls
 			version = AddIntValue("Version", 1, 1, 1, (i) => { file.Version = i; SetJSON(); });
 			name = AddStringValue("Name", "Content File 1", (s) => { file.Name = s; SetJSON(); });
 			type = AddDropDownStringValue("Type", (s) => { file.Type = (ContentType)Enum.Parse(typeof(ContentType), s); SetJSON(); }, "Mesh", "Texture", "Shader", "Material", "Object");
-			AddLine();
-			name = AddStringValue("Mesh", "", (s) => { file.Mesh = s; if (s.Trim() == "") file.Mesh = null; SetJSON(); });
+
 			controls.Reverse();
 			props.Controls.AddRange(controls.ToArray());
+		}
+
+		private void button2_Click(object sender, EventArgs e)
+		{
+			if (texDictionary.SelectedItems.Count == 0) return;
+			foreach (ListViewItem i in texDictionary.SelectedItems)
+			{
+				texDictionary.Items.Remove(i);
+			}
+		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			if (texName.Text.Trim() != "" && texPath.Text.Trim() != "")
+				texDictionary.Items.Add(new ListViewItem(new string[] { texName.Text, texPath.Text }));
+			texName.Text = "";
+			texPath.Text = "";
+			texName.Focus();
+
+			Dictionary<string, string> namePathPairs = new Dictionary<string, string>();
+			foreach (ListViewItem i in texDictionary.Items)
+			{
+				namePathPairs.Add(i.Text, i.SubItems[1].Text);
+			}
+			file.Textures = namePathPairs;
+			SetJSON();
+		}
+
+		private void loadMeshFileButton_Click(object sender, EventArgs e)
+		{
+			OpenFileDialog ofd = new OpenFileDialog();
 		}
 	}
 
