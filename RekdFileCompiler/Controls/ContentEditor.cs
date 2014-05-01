@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -175,6 +176,31 @@ namespace RekdFileCompiler.Controls
 		private void loadMeshFileButton_Click(object sender, EventArgs e)
 		{
 			OpenFileDialog ofd = new OpenFileDialog();
+			ofd.Filter = "3D Meshes|*.obj; *.fbx; *.n3dm; *.n3dbm; *.x";
+			DialogResult d = ofd.ShowDialog();
+			if (d == DialogResult.OK)
+			{
+				string f = ofd.FileName;
+				string ext = Path.GetExtension(f);
+				switch (ext.ToLower())
+				{
+					case ".obj":
+						break;
+
+					case ".fbx":
+						break;
+
+					case ".n3dm":
+						break;
+
+					case ".n3dbm":
+						break;
+
+					case ".x":
+						break;
+				}
+				meshPath.Text = f;
+			}
 		}
 	}
 

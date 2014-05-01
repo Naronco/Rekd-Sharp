@@ -29,6 +29,8 @@
 		private void InitializeComponent()
 		{
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+			this.jsonPreview = new RekdFileCompiler.Controls.JsonPreview();
+			this.splitContainer2 = new System.Windows.Forms.SplitContainer();
 			this.props = new System.Windows.Forms.Panel();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -37,40 +39,38 @@
 			this.chName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.chPath = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-			this.button1 = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
+			this.texName = new System.Windows.Forms.TextBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.texPath = new System.Windows.Forms.TextBox();
+			this.button1 = new System.Windows.Forms.Button();
 			this.shaderPage = new System.Windows.Forms.TabPage();
 			this.meshPage = new System.Windows.Forms.TabPage();
+			this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+			this.meshPath = new System.Windows.Forms.TextBox();
+			this.loadMeshFileButton = new System.Windows.Forms.Button();
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.exportBtn = new System.Windows.Forms.Button();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.checkBox2 = new System.Windows.Forms.CheckBox();
 			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			this.checkBox3 = new System.Windows.Forms.CheckBox();
-			this.texName = new System.Windows.Forms.TextBox();
-			this.label1 = new System.Windows.Forms.Label();
-			this.texPath = new System.Windows.Forms.TextBox();
-			this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-			this.jsonPreview = new RekdFileCompiler.Controls.JsonPreview();
-			this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
-			this.loadMeshFileButton = new System.Windows.Forms.Button();
-			this.textBox1 = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+			this.splitContainer2.Panel1.SuspendLayout();
+			this.splitContainer2.Panel2.SuspendLayout();
+			this.splitContainer2.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.tabControl1.SuspendLayout();
 			this.texturePage.SuspendLayout();
 			this.flowLayoutPanel2.SuspendLayout();
 			this.meshPage.SuspendLayout();
+			this.flowLayoutPanel3.SuspendLayout();
 			this.panel2.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-			this.splitContainer2.Panel1.SuspendLayout();
-			this.splitContainer2.Panel2.SuspendLayout();
-			this.splitContainer2.SuspendLayout();
-			this.flowLayoutPanel3.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// splitContainer1
@@ -91,8 +91,34 @@
 			this.splitContainer1.Panel2.Controls.Add(this.panel2);
 			this.splitContainer1.Panel2.Text = "CustomComboBox Enabled";
 			this.splitContainer1.Size = new System.Drawing.Size(1018, 652);
-			this.splitContainer1.SplitterDistance = 339;
+			this.splitContainer1.SplitterDistance = 375;
 			this.splitContainer1.TabIndex = 1;
+			// 
+			// jsonPreview
+			// 
+			this.jsonPreview.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.jsonPreview.Location = new System.Drawing.Point(0, 0);
+			this.jsonPreview.Name = "jsonPreview";
+			this.jsonPreview.Size = new System.Drawing.Size(375, 652);
+			this.jsonPreview.TabIndex = 0;
+			// 
+			// splitContainer2
+			// 
+			this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+			this.splitContainer2.Name = "splitContainer2";
+			this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+			// 
+			// splitContainer2.Panel1
+			// 
+			this.splitContainer2.Panel1.Controls.Add(this.props);
+			// 
+			// splitContainer2.Panel2
+			// 
+			this.splitContainer2.Panel2.Controls.Add(this.panel1);
+			this.splitContainer2.Size = new System.Drawing.Size(639, 621);
+			this.splitContainer2.SplitterDistance = 323;
+			this.splitContainer2.TabIndex = 7;
 			// 
 			// props
 			// 
@@ -100,7 +126,7 @@
 			this.props.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.props.Location = new System.Drawing.Point(0, 0);
 			this.props.Name = "props";
-			this.props.Size = new System.Drawing.Size(675, 350);
+			this.props.Size = new System.Drawing.Size(639, 323);
 			this.props.TabIndex = 5;
 			// 
 			// panel1
@@ -109,7 +135,7 @@
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panel1.Location = new System.Drawing.Point(0, 0);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(675, 267);
+			this.panel1.Size = new System.Drawing.Size(639, 294);
 			this.panel1.TabIndex = 6;
 			// 
 			// tabControl1
@@ -121,7 +147,7 @@
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(675, 267);
+			this.tabControl1.Size = new System.Drawing.Size(639, 294);
 			this.tabControl1.TabIndex = 0;
 			// 
 			// texturePage
@@ -176,16 +202,6 @@
 			this.flowLayoutPanel2.Size = new System.Drawing.Size(661, 29);
 			this.flowLayoutPanel2.TabIndex = 1;
 			// 
-			// button1
-			// 
-			this.button1.Location = new System.Drawing.Point(285, 3);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(48, 23);
-			this.button1.TabIndex = 5;
-			this.button1.Text = "+";
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.button1_Click);
-			// 
 			// button2
 			// 
 			this.button2.Location = new System.Drawing.Point(3, 3);
@@ -195,6 +211,39 @@
 			this.button2.Text = "-";
 			this.button2.UseVisualStyleBackColor = true;
 			this.button2.Click += new System.EventHandler(this.button2_Click);
+			// 
+			// texName
+			// 
+			this.texName.Location = new System.Drawing.Point(57, 3);
+			this.texName.Name = "texName";
+			this.texName.Size = new System.Drawing.Size(100, 20);
+			this.texName.TabIndex = 2;
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(163, 0);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(10, 23);
+			this.label1.TabIndex = 4;
+			this.label1.Text = ":";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// texPath
+			// 
+			this.texPath.Location = new System.Drawing.Point(179, 3);
+			this.texPath.Name = "texPath";
+			this.texPath.Size = new System.Drawing.Size(100, 20);
+			this.texPath.TabIndex = 3;
+			// 
+			// button1
+			// 
+			this.button1.Location = new System.Drawing.Point(285, 3);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(48, 23);
+			this.button1.TabIndex = 5;
+			this.button1.Text = "+";
+			this.button1.UseVisualStyleBackColor = true;
+			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// shaderPage
 			// 
@@ -212,10 +261,40 @@
 			this.meshPage.Location = new System.Drawing.Point(4, 22);
 			this.meshPage.Name = "meshPage";
 			this.meshPage.Padding = new System.Windows.Forms.Padding(3);
-			this.meshPage.Size = new System.Drawing.Size(667, 241);
+			this.meshPage.Size = new System.Drawing.Size(631, 268);
 			this.meshPage.TabIndex = 2;
 			this.meshPage.Text = "Mesh";
 			this.meshPage.UseVisualStyleBackColor = true;
+			// 
+			// flowLayoutPanel3
+			// 
+			this.flowLayoutPanel3.Controls.Add(this.meshPath);
+			this.flowLayoutPanel3.Controls.Add(this.loadMeshFileButton);
+			this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top;
+			this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 3);
+			this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+			this.flowLayoutPanel3.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
+			this.flowLayoutPanel3.Size = new System.Drawing.Size(625, 31);
+			this.flowLayoutPanel3.TabIndex = 3;
+			// 
+			// meshPath
+			// 
+			this.meshPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.meshPath.Location = new System.Drawing.Point(3, 5);
+			this.meshPath.Name = "meshPath";
+			this.meshPath.Size = new System.Drawing.Size(566, 20);
+			this.meshPath.TabIndex = 1;
+			// 
+			// loadMeshFileButton
+			// 
+			this.loadMeshFileButton.Location = new System.Drawing.Point(575, 5);
+			this.loadMeshFileButton.Name = "loadMeshFileButton";
+			this.loadMeshFileButton.Size = new System.Drawing.Size(45, 23);
+			this.loadMeshFileButton.TabIndex = 0;
+			this.loadMeshFileButton.Text = "...";
+			this.loadMeshFileButton.UseVisualStyleBackColor = true;
+			this.loadMeshFileButton.Click += new System.EventHandler(this.loadMeshFileButton_Click);
 			// 
 			// panel2
 			// 
@@ -225,7 +304,7 @@
 			this.panel2.Location = new System.Drawing.Point(0, 621);
 			this.panel2.Name = "panel2";
 			this.panel2.Padding = new System.Windows.Forms.Padding(0, 0, 5, 5);
-			this.panel2.Size = new System.Drawing.Size(675, 31);
+			this.panel2.Size = new System.Drawing.Size(639, 31);
 			this.panel2.TabIndex = 4;
 			// 
 			// exportBtn
@@ -233,7 +312,7 @@
 			this.exportBtn.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.exportBtn.Location = new System.Drawing.Point(227, 0);
 			this.exportBtn.Name = "exportBtn";
-			this.exportBtn.Size = new System.Drawing.Size(443, 26);
+			this.exportBtn.Size = new System.Drawing.Size(407, 26);
 			this.exportBtn.TabIndex = 3;
 			this.exportBtn.Text = "Export";
 			this.exportBtn.UseVisualStyleBackColor = true;
@@ -286,85 +365,6 @@
 			this.checkBox3.Text = "Embed Shaders";
 			this.checkBox3.UseVisualStyleBackColor = true;
 			// 
-			// texName
-			// 
-			this.texName.Location = new System.Drawing.Point(57, 3);
-			this.texName.Name = "texName";
-			this.texName.Size = new System.Drawing.Size(100, 20);
-			this.texName.TabIndex = 2;
-			// 
-			// label1
-			// 
-			this.label1.Location = new System.Drawing.Point(163, 0);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(10, 23);
-			this.label1.TabIndex = 4;
-			this.label1.Text = ":";
-			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			// 
-			// texPath
-			// 
-			this.texPath.Location = new System.Drawing.Point(179, 3);
-			this.texPath.Name = "texPath";
-			this.texPath.Size = new System.Drawing.Size(100, 20);
-			this.texPath.TabIndex = 3;
-			// 
-			// splitContainer2
-			// 
-			this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-			this.splitContainer2.Name = "splitContainer2";
-			this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
-			// 
-			// splitContainer2.Panel1
-			// 
-			this.splitContainer2.Panel1.Controls.Add(this.props);
-			// 
-			// splitContainer2.Panel2
-			// 
-			this.splitContainer2.Panel2.Controls.Add(this.panel1);
-			this.splitContainer2.Size = new System.Drawing.Size(675, 621);
-			this.splitContainer2.SplitterDistance = 350;
-			this.splitContainer2.TabIndex = 7;
-			// 
-			// jsonPreview
-			// 
-			this.jsonPreview.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.jsonPreview.Location = new System.Drawing.Point(0, 0);
-			this.jsonPreview.Name = "jsonPreview";
-			this.jsonPreview.Size = new System.Drawing.Size(339, 652);
-			this.jsonPreview.TabIndex = 0;
-			// 
-			// flowLayoutPanel3
-			// 
-			this.flowLayoutPanel3.Controls.Add(this.textBox1);
-			this.flowLayoutPanel3.Controls.Add(this.loadMeshFileButton);
-			this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top;
-			this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 3);
-			this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-			this.flowLayoutPanel3.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
-			this.flowLayoutPanel3.Size = new System.Drawing.Size(661, 34);
-			this.flowLayoutPanel3.TabIndex = 3;
-			// 
-			// loadMeshFileButton
-			// 
-			this.loadMeshFileButton.Location = new System.Drawing.Point(609, 5);
-			this.loadMeshFileButton.Name = "loadMeshFileButton";
-			this.loadMeshFileButton.Size = new System.Drawing.Size(45, 23);
-			this.loadMeshFileButton.TabIndex = 0;
-			this.loadMeshFileButton.Text = "...";
-			this.loadMeshFileButton.UseVisualStyleBackColor = true;
-			this.loadMeshFileButton.Click += new System.EventHandler(this.loadMeshFileButton_Click);
-			// 
-			// textBox1
-			// 
-			this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox1.Location = new System.Drawing.Point(3, 5);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(600, 20);
-			this.textBox1.TabIndex = 1;
-			// 
 			// ContentEditor
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -377,21 +377,21 @@
 			this.splitContainer1.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
 			this.splitContainer1.ResumeLayout(false);
+			this.splitContainer2.Panel1.ResumeLayout(false);
+			this.splitContainer2.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+			this.splitContainer2.ResumeLayout(false);
 			this.panel1.ResumeLayout(false);
 			this.tabControl1.ResumeLayout(false);
 			this.texturePage.ResumeLayout(false);
 			this.flowLayoutPanel2.ResumeLayout(false);
 			this.flowLayoutPanel2.PerformLayout();
 			this.meshPage.ResumeLayout(false);
+			this.flowLayoutPanel3.ResumeLayout(false);
+			this.flowLayoutPanel3.PerformLayout();
 			this.panel2.ResumeLayout(false);
 			this.flowLayoutPanel1.ResumeLayout(false);
 			this.flowLayoutPanel1.PerformLayout();
-			this.splitContainer2.Panel1.ResumeLayout(false);
-			this.splitContainer2.Panel2.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-			this.splitContainer2.ResumeLayout(false);
-			this.flowLayoutPanel3.ResumeLayout(false);
-			this.flowLayoutPanel3.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -423,7 +423,7 @@
 		private System.Windows.Forms.TextBox texPath;
 		private System.Windows.Forms.SplitContainer splitContainer2;
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
-		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.TextBox meshPath;
 		private System.Windows.Forms.Button loadMeshFileButton;
 	}
 }
