@@ -1,14 +1,22 @@
 ﻿using Newtonsoft.Json;
+using RekdEngine.Content;
+using RekdEngine.Render;
+using RekdEngine.UtilMath;
 using RekdFileCompiler.JSON;
+using SharpDX;
+using SharpDX.Direct3D9;
+using SharpDX.Windows;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -21,6 +29,10 @@ namespace RekdFileCompiler.Controls
 		private StringHandle type;
 		private List<Control> controls;
 		private JSONFormat file;
+		private RekdEngine.Content.Effect f;
+		private long time;
+		private bool ShaderInitialized;
+		private Dictionary<string, string> workingShaderParams;
 
 		public ContentEditor()
 		{
@@ -132,7 +144,7 @@ namespace RekdFileCompiler.Controls
 			p.Left = 0;
 			p.Dock = DockStyle.Top;
 			p.Height = 2;
-			p.BackColor = Color.FromArgb(230, 230, 230);
+			p.BackColor = System.Drawing.Color.FromArgb(230, 230, 230);
 			controls.Add(p);
 		}
 
@@ -145,6 +157,29 @@ namespace RekdFileCompiler.Controls
 
 			controls.Reverse();
 			props.Controls.AddRange(controls.ToArray());
+			direct3DPreview1.Initialize();
+
+			shaderVariables.SmallImageList = new ImageList();
+			shaderVariables.SmallImageList.Images.Add(new Bitmap(1, 1));
+			shaderVariables.SmallImageList.Images.Add(SystemIcons.Exclamation);
+
+			workingShaderParams = new Dictionary<string, string>();
+		}
+
+		public void FillShaderParams()
+		{
+			workingShaderParams.Clear();
+			foreach (ListViewItem i in shaderVariables.Items)
+			{
+				if (workingShaderParams.ContainsKey(i.SubItems[0].Text))
+				{
+					i.ImageIndex = 1;
+				}
+				else
+				{
+					workingShaderParams.Add(i.SubItems[0].Text, i.SubItems[2].Text);
+				}
+			}
 		}
 
 		private void button2_Click(object sender, EventArgs e)
@@ -154,6 +189,87 @@ namespace RekdFileCompiler.Controls
 			{
 				texDictionary.Items.Remove(i);
 			}
+			FillShaderParams();
+		}
+
+		public void HandleShaderVariables()
+		{
+			List<string> toRemove = new List<string>();
+			foreach (KeyValuePair<string, string> i in workingShaderParams)
+			{
+				try
+				{
+					switch (i.Value)
+					{
+						case "%WorldMatrix":
+							f.SetMatrix(i.Key, direct3DPreview1.Device.GetTransform(TransformState.World));
+							break;
+
+						case "%ViewMatrix":
+							f.SetMatrix(i.Key, direct3DPreview1.Device.GetTransform(TransformState.View));
+							break;
+
+						case "%ProjectionMatrix":
+							f.SetMatrix(i.Key, direct3DPreview1.Device.GetTransform(TransformState.Projection));
+							break;
+
+						case "%TexelSize":
+							f.SetVector(i.Key, new Vector2f(1 / direct3DPreview1.ViewportWidth, 1 / direct3DPreview1.ViewportHeight));
+							break;
+
+						case "%TimeMS":
+							f.SetValue(i.Key, time);
+							break;
+					}
+				}
+				catch
+				{
+					foreach (ListViewItem it in texDictionary.Items)
+					{
+						if (it.SubItems[0].Text == i.Key)
+							it.ImageIndex = 1;
+					}
+					toRemove.Add(i.Key);
+				}
+			}
+			foreach (string s in toRemove)
+			{
+				workingShaderParams.Remove(s);
+			}
+		}
+
+		public void LoadShaderPreview()
+		{
+			ShaderInitialized = true;
+			f = direct3DPreview1.Content.LoadString<RekdEngine.Content.Effect>("float4 f():COLOR{return 1;}technique t{pass p{PixelShader=compile ps_2_0 f();}}");
+
+			Stopwatch sw = new Stopwatch();
+			Texture2D tex = direct3DPreview1.Content.Load<Texture2D>("example.png");
+			direct3DPreview1.Start((Width, Height) =>
+			{
+				sw.Start();
+				direct3DPreview1.spriteBatch.Begin(RekdEngine.Core.Color.Black);
+
+				HandleShaderVariables();
+
+				f.Begin();
+				f.BeginPass(0);
+
+				int d = Math.Min(Width - 64, Height - 64);
+
+				tex.Bind(0);
+				direct3DPreview1.spriteBatch.DrawPrimitive(new RekdEngine.UtilMath.Rectangle((Width - d) * 0.5f, -(Height - d) * 0.5f, d, d));
+
+				f.EndPass();
+				f.End();
+
+				direct3DPreview1.spriteBatch.End();
+
+				direct3DPreview1.Device.Present();
+				sw.Stop();
+				time += sw.ElapsedMilliseconds;
+			});
+			f.Dispose();
 		}
 
 		private void button1_Click(object sender, EventArgs e)
@@ -199,8 +315,134 @@ namespace RekdFileCompiler.Controls
 					case ".x":
 						break;
 				}
-				meshPath.Text = f;
+
+				//meshPath.Text = f;
 			}
+		}
+
+		private void runShaderButton_Click(object sender, EventArgs e)
+		{
+		}
+
+		private void button4_Click(object sender, EventArgs e)
+		{
+			AddShaderItem asi = new AddShaderItem();
+			asi.ShowDialog();
+			shaderVariables.Items.Add(new ListViewItem(new[] { asi.Name, asi.Type, asi.Default }));
+			if (file.Shader.Variables == null)
+			{
+				file.Shader = new JSONShaderFormat() { Variables = new List<string>(), Textures = new Dictionary<string, string>() };
+			}
+			file.Shader.Variables.Clear();
+			foreach (ListViewItem i in shaderVariables.Items)
+			{
+				file.Shader.Variables.Add(i.Text);
+			}
+			SetJSON();
+			FillShaderParams();
+		}
+
+		private void button3_Click(object sender, EventArgs e)
+		{
+			if (shaderVariables.SelectedItems.Count == 0) return;
+			foreach (ListViewItem i in shaderVariables.SelectedItems)
+			{
+				shaderVariables.Items.Remove(i);
+			}
+			file.Shader.Variables.Clear();
+			foreach (ListViewItem i in shaderVariables.Items)
+			{
+				file.Shader.Variables.Add(i.Text);
+			}
+			SetJSON();
+			FillShaderParams();
+		}
+
+		public string Prompt(string text, string def)
+		{
+			Form f = new Form();
+			f.Width = 400;
+			f.Height = 150;
+			f.FormBorderStyle = FormBorderStyle.FixedDialog;
+			f.Padding = new Padding(10);
+			Button bt = new Button();
+			bt.Dock = DockStyle.Bottom;
+			bt.Text = "OK";
+			bt.Focus();
+			bt.Click += (s, e) =>
+			{
+				f.Close();
+			};
+			f.Controls.Add(bt);
+			TextBox tb = new TextBox();
+			tb.Dock = DockStyle.Top;
+			tb.Text = def;
+			f.Controls.Add(tb);
+			Label lb = new Label();
+			lb.Text = "Please enter the " + text + ":";
+			lb.AutoSize = false;
+			lb.TextAlign = ContentAlignment.MiddleCenter;
+			lb.Dock = DockStyle.Top;
+			f.Controls.Add(lb);
+			f.StartPosition = FormStartPosition.CenterParent;
+			f.ShowDialog();
+			return tb.Text;
+		}
+
+		private void addWVP_Click(object sender, EventArgs e)
+		{
+			shaderVariables.Items.Add(new ListViewItem(new[] { Prompt("World Matrix Name", "World"), "Matrix4x4", "%WorldMatrix" }));
+			shaderVariables.Items.Add(new ListViewItem(new[] { Prompt("View Matrix Name", "View"), "Matrix4x4", "%ViewMatrix" }));
+			shaderVariables.Items.Add(new ListViewItem(new[] { Prompt("Projection Matrix Name", "Projection"), "Matrix4x4", "%ProjectionMatrix" }));
+			if (file.Shader.Variables == null)
+			{
+				file.Shader = new JSONShaderFormat() { Variables = new List<string>(), Textures = new Dictionary<string, string>() };
+			}
+			file.Shader.Variables.Clear();
+			foreach (ListViewItem i in shaderVariables.Items)
+			{
+				file.Shader.Variables.Add(i.Text);
+			}
+			SetJSON();
+			FillShaderParams();
+		}
+
+		private void addTexelSize_Click(object sender, EventArgs e)
+		{
+			shaderVariables.Items.Add(new ListViewItem(new[] { Prompt("Texel Size Name", "TexelSize"), "Vector2", "%TexelSize" }));
+			if (file.Shader.Variables == null)
+			{
+				file.Shader = new JSONShaderFormat() { Variables = new List<string>(), Textures = new Dictionary<string, string>() };
+			}
+			file.Shader.Variables.Clear();
+			foreach (ListViewItem i in shaderVariables.Items)
+			{
+				file.Shader.Variables.Add(i.Text);
+			}
+			SetJSON();
+			FillShaderParams();
+		}
+
+		private void addTime_Click(object sender, EventArgs e)
+		{
+			shaderVariables.Items.Add(new ListViewItem(new[] { Prompt("Time Name", "Time"), "Number", "%TimeMS" }));
+			if (file.Shader.Variables == null)
+			{
+				file.Shader = new JSONShaderFormat() { Variables = new List<string>(), Textures = new Dictionary<string, string>() };
+			}
+			file.Shader.Variables.Clear();
+			foreach (ListViewItem i in shaderVariables.Items)
+			{
+				file.Shader.Variables.Add(i.Text);
+			}
+			SetJSON();
+			FillShaderParams();
+		}
+
+		private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (tabControl1.SelectedIndex == 1 && !ShaderInitialized)
+				LoadShaderPreview();
 		}
 	}
 

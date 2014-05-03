@@ -45,10 +45,23 @@
 			this.texPath = new System.Windows.Forms.TextBox();
 			this.button1 = new System.Windows.Forms.Button();
 			this.shaderPage = new System.Windows.Forms.TabPage();
-			this.meshPage = new System.Windows.Forms.TabPage();
+			this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+			this.direct3DPreview1 = new RekdFileCompiler.Controls.Direct3DPreview();
+			this.panel3 = new System.Windows.Forms.Panel();
+			this.shaderVariables = new System.Windows.Forms.ListView();
+			this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
-			this.meshPath = new System.Windows.Forms.TextBox();
-			this.loadMeshFileButton = new System.Windows.Forms.Button();
+			this.button3 = new System.Windows.Forms.Button();
+			this.button4 = new System.Windows.Forms.Button();
+			this.addWVP = new System.Windows.Forms.Button();
+			this.addTexelSize = new System.Windows.Forms.Button();
+			this.addTime = new System.Windows.Forms.Button();
+			this.openFileControl2 = new RekdFileCompiler.Controls.OpenFileControl();
+			this.runShaderButton = new System.Windows.Forms.Button();
+			this.meshPage = new System.Windows.Forms.TabPage();
+			this.openFileControl1 = new RekdFileCompiler.Controls.OpenFileControl();
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.exportBtn = new System.Windows.Forms.Button();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -67,8 +80,14 @@
 			this.tabControl1.SuspendLayout();
 			this.texturePage.SuspendLayout();
 			this.flowLayoutPanel2.SuspendLayout();
-			this.meshPage.SuspendLayout();
+			this.shaderPage.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
+			this.splitContainer3.Panel1.SuspendLayout();
+			this.splitContainer3.Panel2.SuspendLayout();
+			this.splitContainer3.SuspendLayout();
+			this.panel3.SuspendLayout();
 			this.flowLayoutPanel3.SuspendLayout();
+			this.meshPage.SuspendLayout();
 			this.panel2.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.SuspendLayout();
@@ -149,6 +168,7 @@
 			this.tabControl1.SelectedIndex = 0;
 			this.tabControl1.Size = new System.Drawing.Size(639, 294);
 			this.tabControl1.TabIndex = 0;
+			this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
 			// 
 			// texturePage
 			// 
@@ -157,7 +177,7 @@
 			this.texturePage.Location = new System.Drawing.Point(4, 22);
 			this.texturePage.Name = "texturePage";
 			this.texturePage.Padding = new System.Windows.Forms.Padding(3);
-			this.texturePage.Size = new System.Drawing.Size(667, 241);
+			this.texturePage.Size = new System.Drawing.Size(631, 268);
 			this.texturePage.TabIndex = 0;
 			this.texturePage.Text = "Texture";
 			this.texturePage.UseVisualStyleBackColor = true;
@@ -174,7 +194,7 @@
 			this.texDictionary.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
 			this.texDictionary.Location = new System.Drawing.Point(3, 3);
 			this.texDictionary.Name = "texDictionary";
-			this.texDictionary.Size = new System.Drawing.Size(661, 206);
+			this.texDictionary.Size = new System.Drawing.Size(625, 233);
 			this.texDictionary.TabIndex = 0;
 			this.texDictionary.UseCompatibleStateImageBehavior = false;
 			this.texDictionary.View = System.Windows.Forms.View.Details;
@@ -197,9 +217,9 @@
 			this.flowLayoutPanel2.Controls.Add(this.texPath);
 			this.flowLayoutPanel2.Controls.Add(this.button1);
 			this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 209);
+			this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 236);
 			this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-			this.flowLayoutPanel2.Size = new System.Drawing.Size(661, 29);
+			this.flowLayoutPanel2.Size = new System.Drawing.Size(625, 29);
 			this.flowLayoutPanel2.TabIndex = 1;
 			// 
 			// button2
@@ -247,17 +267,175 @@
 			// 
 			// shaderPage
 			// 
+			this.shaderPage.Controls.Add(this.splitContainer3);
 			this.shaderPage.Location = new System.Drawing.Point(4, 22);
 			this.shaderPage.Name = "shaderPage";
 			this.shaderPage.Padding = new System.Windows.Forms.Padding(3);
-			this.shaderPage.Size = new System.Drawing.Size(667, 241);
+			this.shaderPage.Size = new System.Drawing.Size(631, 268);
 			this.shaderPage.TabIndex = 1;
 			this.shaderPage.Text = "Shader";
 			this.shaderPage.UseVisualStyleBackColor = true;
 			// 
+			// splitContainer3
+			// 
+			this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.splitContainer3.Location = new System.Drawing.Point(3, 3);
+			this.splitContainer3.Name = "splitContainer3";
+			// 
+			// splitContainer3.Panel1
+			// 
+			this.splitContainer3.Panel1.Controls.Add(this.direct3DPreview1);
+			// 
+			// splitContainer3.Panel2
+			// 
+			this.splitContainer3.Panel2.Controls.Add(this.panel3);
+			this.splitContainer3.Panel2.Controls.Add(this.runShaderButton);
+			this.splitContainer3.Size = new System.Drawing.Size(625, 262);
+			this.splitContainer3.SplitterDistance = 270;
+			this.splitContainer3.TabIndex = 1;
+			// 
+			// direct3DPreview1
+			// 
+			this.direct3DPreview1.Content = null;
+			this.direct3DPreview1.Device = null;
+			this.direct3DPreview1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.direct3DPreview1.Location = new System.Drawing.Point(0, 0);
+			this.direct3DPreview1.Name = "direct3DPreview1";
+			this.direct3DPreview1.Size = new System.Drawing.Size(270, 262);
+			this.direct3DPreview1.spriteBatch = null;
+			this.direct3DPreview1.TabIndex = 0;
+			this.direct3DPreview1.Title = "DirectX Preview";
+			// 
+			// panel3
+			// 
+			this.panel3.Controls.Add(this.shaderVariables);
+			this.panel3.Controls.Add(this.flowLayoutPanel3);
+			this.panel3.Controls.Add(this.openFileControl2);
+			this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panel3.Location = new System.Drawing.Point(0, 0);
+			this.panel3.Name = "panel3";
+			this.panel3.Size = new System.Drawing.Size(351, 239);
+			this.panel3.TabIndex = 6;
+			// 
+			// shaderVariables
+			// 
+			this.shaderVariables.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.shaderVariables.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3});
+			this.shaderVariables.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.shaderVariables.FullRowSelect = true;
+			this.shaderVariables.GridLines = true;
+			this.shaderVariables.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+			this.shaderVariables.Location = new System.Drawing.Point(0, 24);
+			this.shaderVariables.Name = "shaderVariables";
+			this.shaderVariables.Size = new System.Drawing.Size(351, 186);
+			this.shaderVariables.TabIndex = 1;
+			this.shaderVariables.UseCompatibleStateImageBehavior = false;
+			this.shaderVariables.View = System.Windows.Forms.View.Details;
+			// 
+			// columnHeader1
+			// 
+			this.columnHeader1.Text = "Name";
+			this.columnHeader1.Width = 80;
+			// 
+			// columnHeader2
+			// 
+			this.columnHeader2.Text = "Type";
+			this.columnHeader2.Width = 88;
+			// 
+			// columnHeader3
+			// 
+			this.columnHeader3.Text = "Test Value";
+			this.columnHeader3.Width = 160;
+			// 
+			// flowLayoutPanel3
+			// 
+			this.flowLayoutPanel3.Controls.Add(this.button3);
+			this.flowLayoutPanel3.Controls.Add(this.button4);
+			this.flowLayoutPanel3.Controls.Add(this.addWVP);
+			this.flowLayoutPanel3.Controls.Add(this.addTexelSize);
+			this.flowLayoutPanel3.Controls.Add(this.addTime);
+			this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.flowLayoutPanel3.Location = new System.Drawing.Point(0, 210);
+			this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+			this.flowLayoutPanel3.Size = new System.Drawing.Size(351, 29);
+			this.flowLayoutPanel3.TabIndex = 2;
+			// 
+			// button3
+			// 
+			this.button3.Location = new System.Drawing.Point(3, 3);
+			this.button3.Name = "button3";
+			this.button3.Size = new System.Drawing.Size(57, 23);
+			this.button3.TabIndex = 1;
+			this.button3.Text = "-";
+			this.button3.UseVisualStyleBackColor = true;
+			this.button3.Click += new System.EventHandler(this.button3_Click);
+			// 
+			// button4
+			// 
+			this.button4.Location = new System.Drawing.Point(66, 3);
+			this.button4.Name = "button4";
+			this.button4.Size = new System.Drawing.Size(57, 23);
+			this.button4.TabIndex = 5;
+			this.button4.Text = "+";
+			this.button4.UseVisualStyleBackColor = true;
+			this.button4.Click += new System.EventHandler(this.button4_Click);
+			// 
+			// addWVP
+			// 
+			this.addWVP.Location = new System.Drawing.Point(129, 3);
+			this.addWVP.Name = "addWVP";
+			this.addWVP.Size = new System.Drawing.Size(57, 23);
+			this.addWVP.TabIndex = 6;
+			this.addWVP.Text = "+WVP";
+			this.addWVP.UseVisualStyleBackColor = true;
+			this.addWVP.Click += new System.EventHandler(this.addWVP_Click);
+			// 
+			// addTexelSize
+			// 
+			this.addTexelSize.Location = new System.Drawing.Point(192, 3);
+			this.addTexelSize.Name = "addTexelSize";
+			this.addTexelSize.Size = new System.Drawing.Size(57, 23);
+			this.addTexelSize.TabIndex = 7;
+			this.addTexelSize.Text = "+Texel";
+			this.addTexelSize.UseVisualStyleBackColor = true;
+			this.addTexelSize.Click += new System.EventHandler(this.addTexelSize_Click);
+			// 
+			// addTime
+			// 
+			this.addTime.Location = new System.Drawing.Point(255, 3);
+			this.addTime.Name = "addTime";
+			this.addTime.Size = new System.Drawing.Size(57, 23);
+			this.addTime.TabIndex = 8;
+			this.addTime.Text = "+Time";
+			this.addTime.UseVisualStyleBackColor = true;
+			this.addTime.Click += new System.EventHandler(this.addTime_Click);
+			// 
+			// openFileControl2
+			// 
+			this.openFileControl2.Dock = System.Windows.Forms.DockStyle.Top;
+			this.openFileControl2.Filter = "Effect Files (*.fx)|*.fx";
+			this.openFileControl2.Location = new System.Drawing.Point(0, 0);
+			this.openFileControl2.Name = "openFileControl2";
+			this.openFileControl2.Size = new System.Drawing.Size(351, 24);
+			this.openFileControl2.TabIndex = 0;
+			// 
+			// runShaderButton
+			// 
+			this.runShaderButton.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.runShaderButton.Location = new System.Drawing.Point(0, 239);
+			this.runShaderButton.Name = "runShaderButton";
+			this.runShaderButton.Size = new System.Drawing.Size(351, 23);
+			this.runShaderButton.TabIndex = 7;
+			this.runShaderButton.Text = "Run";
+			this.runShaderButton.UseVisualStyleBackColor = true;
+			this.runShaderButton.Click += new System.EventHandler(this.runShaderButton_Click);
+			// 
 			// meshPage
 			// 
-			this.meshPage.Controls.Add(this.flowLayoutPanel3);
+			this.meshPage.Controls.Add(this.openFileControl1);
 			this.meshPage.Location = new System.Drawing.Point(4, 22);
 			this.meshPage.Name = "meshPage";
 			this.meshPage.Padding = new System.Windows.Forms.Padding(3);
@@ -266,35 +444,14 @@
 			this.meshPage.Text = "Mesh";
 			this.meshPage.UseVisualStyleBackColor = true;
 			// 
-			// flowLayoutPanel3
+			// openFileControl1
 			// 
-			this.flowLayoutPanel3.Controls.Add(this.meshPath);
-			this.flowLayoutPanel3.Controls.Add(this.loadMeshFileButton);
-			this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top;
-			this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 3);
-			this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-			this.flowLayoutPanel3.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
-			this.flowLayoutPanel3.Size = new System.Drawing.Size(625, 31);
-			this.flowLayoutPanel3.TabIndex = 3;
-			// 
-			// meshPath
-			// 
-			this.meshPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.meshPath.Location = new System.Drawing.Point(3, 5);
-			this.meshPath.Name = "meshPath";
-			this.meshPath.Size = new System.Drawing.Size(566, 20);
-			this.meshPath.TabIndex = 1;
-			// 
-			// loadMeshFileButton
-			// 
-			this.loadMeshFileButton.Location = new System.Drawing.Point(575, 5);
-			this.loadMeshFileButton.Name = "loadMeshFileButton";
-			this.loadMeshFileButton.Size = new System.Drawing.Size(45, 23);
-			this.loadMeshFileButton.TabIndex = 0;
-			this.loadMeshFileButton.Text = "...";
-			this.loadMeshFileButton.UseVisualStyleBackColor = true;
-			this.loadMeshFileButton.Click += new System.EventHandler(this.loadMeshFileButton_Click);
+			this.openFileControl1.Dock = System.Windows.Forms.DockStyle.Top;
+			this.openFileControl1.Filter = "3D Meshes|*.obj; *.fbx; *.n3dm; *.n3dbm; *.x";
+			this.openFileControl1.Location = new System.Drawing.Point(3, 3);
+			this.openFileControl1.Name = "openFileControl1";
+			this.openFileControl1.Size = new System.Drawing.Size(625, 24);
+			this.openFileControl1.TabIndex = 0;
 			// 
 			// panel2
 			// 
@@ -386,9 +543,14 @@
 			this.texturePage.ResumeLayout(false);
 			this.flowLayoutPanel2.ResumeLayout(false);
 			this.flowLayoutPanel2.PerformLayout();
-			this.meshPage.ResumeLayout(false);
+			this.shaderPage.ResumeLayout(false);
+			this.splitContainer3.Panel1.ResumeLayout(false);
+			this.splitContainer3.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
+			this.splitContainer3.ResumeLayout(false);
+			this.panel3.ResumeLayout(false);
 			this.flowLayoutPanel3.ResumeLayout(false);
-			this.flowLayoutPanel3.PerformLayout();
+			this.meshPage.ResumeLayout(false);
 			this.panel2.ResumeLayout(false);
 			this.flowLayoutPanel1.ResumeLayout(false);
 			this.flowLayoutPanel1.PerformLayout();
@@ -422,8 +584,21 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox texPath;
 		private System.Windows.Forms.SplitContainer splitContainer2;
+		private System.Windows.Forms.SplitContainer splitContainer3;
+		private System.Windows.Forms.Panel panel3;
+		private System.Windows.Forms.Button runShaderButton;
+		private OpenFileControl openFileControl2;
+		private OpenFileControl openFileControl1;
+		private System.Windows.Forms.ListView shaderVariables;
+		private System.Windows.Forms.ColumnHeader columnHeader1;
+		private System.Windows.Forms.ColumnHeader columnHeader2;
+		private System.Windows.Forms.ColumnHeader columnHeader3;
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
-		private System.Windows.Forms.TextBox meshPath;
-		private System.Windows.Forms.Button loadMeshFileButton;
+		private System.Windows.Forms.Button button3;
+		private System.Windows.Forms.Button button4;
+		private System.Windows.Forms.Button addWVP;
+		private System.Windows.Forms.Button addTexelSize;
+		private System.Windows.Forms.Button addTime;
+		private Direct3DPreview direct3DPreview1;
 	}
 }

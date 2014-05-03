@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RekdFileCompiler.JSON
 {
-	public class JSONShaderFormat
+	public struct JSONShaderFormat
 	{
 		public List<string> Variables { get; set; }
 

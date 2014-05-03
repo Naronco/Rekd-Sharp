@@ -19,7 +19,7 @@ namespace RekdEngine.Content
 			handle = Eff.FromFile(d, File, ShaderFlags.None);
 		}
 
-		internal Effect(Device d, string content, ShaderFlags s)
+		public Effect(Device d, string content, ShaderFlags s)
 		{
 			handle = Eff.FromString(d, content, s);
 		}
@@ -59,6 +59,31 @@ namespace RekdEngine.Content
 			handle.End();
 		}
 
+		public void SetValue(string name, bool v)
+		{
+			handle.SetValue(name, v);
+		}
+
+		public void SetValue(string name, float v)
+		{
+			handle.SetValue(name, v);
+		}
+
+		public void SetValue(string name, int v)
+		{
+			handle.SetValue(name, v);
+		}
+
+		public void SetValue(string name, Matrix v)
+		{
+			handle.SetValue(name, v);
+		}
+
+		public void SetValue(string name, Vector4 v)
+		{
+			handle.SetValue(name, v);
+		}
+
 		public void NativeSetTexture(string name, BaseTexture tex)
 		{
 			handle.SetTexture(name, tex);
@@ -82,6 +107,21 @@ namespace RekdEngine.Content
 		public void SetColor(string name, Core.Color c)
 		{
 			handle.SetValue(name, c.AsSharpDX4());
+		}
+
+		public void SetVector(string name, Vector2f v)
+		{
+			handle.SetValue(name, new Vector2(v.X, v.Y));
+		}
+
+		public void SetVector(string name, Vector3f v)
+		{
+			handle.SetValue(name, new Vector3(v.X, v.Y, v.Z));
+		}
+
+		public void SetVector(string name, Vector4f v)
+		{
+			handle.SetValue(name, new Vector4(v.X, v.Y, v.Z, v.W));
 		}
 
 		/*

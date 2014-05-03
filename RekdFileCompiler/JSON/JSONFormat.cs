@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RekdFileCompiler.JSON
 {
-	public class JSONFormat
+	public struct JSONFormat
 	{
 		[JsonProperty(Required = Required.Always)]
 		public string Name { get; set; }

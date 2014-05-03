@@ -36,6 +36,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4" />
+    <Reference Include="SharpDX, Version=2.5.0.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\SharpDX.2.5.0\lib\net40\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Direct3D9">
+      <HintPath>..\packages\SharpDX.Direct3D9.2.5.0\lib\net40\SharpDX.Direct3D9.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,17 +56,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddShaderItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddShaderItem.Designer.cs">
+      <DependentUpon>AddShaderItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ContentEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\ContentEditor.Designer.cs">
       <DependentUpon>ContentEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Direct3DPreview.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Direct3DPreview.Designer.cs">
+      <DependentUpon>Direct3DPreview.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\JsonPreview.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\JsonPreview.Designer.cs">
       <DependentUpon>JsonPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\OpenFileControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\OpenFileControl.Designer.cs">
+      <DependentUpon>OpenFileControl.cs</DependentUpon>
     </Compile>
     <Compile Include="FileCompiler.cs">
       <SubType>Form</SubType>
@@ -71,11 +97,20 @@
     <Compile Include="JSON\JSONShaderFormat.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AddShaderItem.resx">
+      <DependentUpon>AddShaderItem.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\ContentEditor.resx">
       <DependentUpon>ContentEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Direct3DPreview.resx">
+      <DependentUpon>Direct3DPreview.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\JsonPreview.resx">
       <DependentUpon>JsonPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\OpenFileControl.resx">
+      <DependentUpon>OpenFileControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FileCompiler.resx">
       <DependentUpon>FileCompiler.cs</DependentUpon>
@@ -102,6 +137,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RekdEngine\RekdEngine.csproj">
+      <Project>{ff9b1f2e-9557-46ac-8f18-89b2c6a33e64}</Project>
+      <Name>RekdEngine</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
