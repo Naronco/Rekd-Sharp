@@ -67,46 +67,6 @@
     <Compile Include="Debug\DebugWrite.cs" />
     <Compile Include="Event\Events.cs" />
     <Compile Include="Event\GameEventListener.cs" />
-    <Compile Include="Physics\Collision\AABB.cs" />
-    <Compile Include="Physics\Collision\BroadPhase.cs" />
-    <Compile Include="Physics\Collision\ClipVertex.cs" />
-    <Compile Include="Physics\Collision\ContactFeature.cs" />
-    <Compile Include="Physics\Collision\ContactFeatureType.cs" />
-    <Compile Include="Physics\Collision\ContactID.cs" />
-    <Compile Include="Physics\Collision\Distance.cs" />
-    <Compile Include="Physics\Collision\DynamicTree.cs" />
-    <Compile Include="Physics\Collision\Manifold.cs" />
-    <Compile Include="Physics\Collision\ManifoldPoint.cs" />
-    <Compile Include="Physics\Collision\ManifoldType.cs" />
-    <Compile Include="Physics\Collision\PointState.cs" />
-    <Compile Include="Physics\Collision\RayCastInput.cs" />
-    <Compile Include="Physics\Collision\RayCastOutput.cs" />
-    <Compile Include="Physics\Collision\Shapes\ChainShape.cs" />
-    <Compile Include="Physics\Collision\Shapes\CircleShape.cs" />
-    <Compile Include="Physics\Collision\Shapes\EdgeShape.cs" />
-    <Compile Include="Physics\Collision\Shapes\MassData.cs" />
-    <Compile Include="Physics\Collision\Shapes\PolygonShape.cs" />
-    <Compile Include="Physics\Collision\Shapes\Shape.cs" />
-    <Compile Include="Physics\Collision\Shapes\ShapeType.cs" />
-    <Compile Include="Physics\Collision\TimeOfImpact.cs" />
-    <Compile Include="Physics\Collision\WorldManifold.cs" />
-    <Compile Include="Physics\Dynamics\Body.cs" />
-    <Compile Include="Physics\Dynamics\Contacts\Contact.cs" />
-    <Compile Include="Physics\Dynamics\Fixture.cs" />
-    <Compile Include="Physics\Dynamics\Joints\DistanceJoint.cs" />
-    <Compile Include="Physics\Dynamics\Joints\FrictionJoint.cs" />
-    <Compile Include="Physics\Dynamics\Joints\GearJoint.cs" />
-    <Compile Include="Physics\Dynamics\Joints\MotorJoint.cs" />
-    <Compile Include="Physics\Dynamics\Joints\MouseJoint.cs" />
-    <Compile Include="Physics\Dynamics\Joints\PrismaticJoint.cs" />
-    <Compile Include="Physics\Dynamics\Joints\PulleyJoint.cs" />
-    <Compile Include="Physics\Dynamics\Joints\RevoluteJoint.cs" />
-    <Compile Include="Physics\Dynamics\Joints\RopeJoint.cs" />
-    <Compile Include="Physics\Dynamics\Joints\WeldJoint.cs" />
-    <Compile Include="Physics\Dynamics\Joints\WheelJoint.cs" />
-    <Compile Include="Physics\Dynamics\TimeStep.cs" />
-    <Compile Include="Physics\Dynamics\World.cs" />
-    <Compile Include="Physics\Dynamics\WorldCallbacks.cs" />
     <Compile Include="Render\SpriteBatch.cs" />
     <Compile Include="Render\VertexPositionColor.cs" />
     <Compile Include="Render\VertexPositionTextureColor.cs" />
@@ -127,9 +87,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Physics\Common\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
