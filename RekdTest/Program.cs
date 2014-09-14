@@ -19,13 +19,10 @@ namespace RekdTest
 		[STAThread]
 		public static void Main()
 		{
-			Application.SetCompatibleTextRenderingDefault(false);
-			Application.EnableVisualStyles();
-			Application.Run(new TestForm());
-			/*using (Game1 game = new Game1())
+			using (Game1 game = new Game1())
 			{
 				game.Run("Rekd Test", 640, 480);
-			}*/
+			}
 		}
 	}
 }
