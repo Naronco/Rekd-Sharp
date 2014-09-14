@@ -47,7 +47,7 @@ namespace RekdEngine.Debug
 			DebugToConsole = false;
 			DebugFile = new StreamWriter(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "debug.log"));
 #endif
-			Log("Started Debug in file " + Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "debug.log"));
+			Log("Started debugging session at /debug.log");
 		}
 	}
 }
