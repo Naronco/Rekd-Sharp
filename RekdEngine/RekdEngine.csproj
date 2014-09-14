@@ -81,7 +81,6 @@
     <Compile Include="UtilMath\Matrix4x4.cs" />
     <Compile Include="UtilMath\Rectangle.cs" />
     <Compile Include="UtilMath\Rotation.cs" />
-    <Compile Include="UtilMath\Sweep.cs" />
     <Compile Include="UtilMath\Transform.cs" />
     <Compile Include="UtilMath\Vector4f.cs" />
     <Compile Include="UtilMath\Vector3f.cs" />
