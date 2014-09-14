@@ -49,7 +49,7 @@ namespace RekdEngine.Content
 		/// </summary>
 		/// <param name="Window">Not Used</param>
 		/// <param name="d">Not Used</param>
-		protected void HandleDeviceReset(Form Window, Device d)
+		protected void HandleDeviceReset(ContainerControl Window, Device d)
 		{
 			foreach (NonManagedRessource r in resources)
 				r.Reset();
@@ -60,7 +60,7 @@ namespace RekdEngine.Content
 		/// </summary>
 		/// <param name="Window">Not Used</param>
 		/// <param name="d">Not Used</param>
-		protected void HandleDeviceLost(Form Window, Size e)
+		protected void HandleDeviceLost(ContainerControl Window, Size e)
 		{
 			foreach (NonManagedRessource r in resources)
 				r.Lost();

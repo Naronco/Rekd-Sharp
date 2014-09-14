@@ -23,32 +23,32 @@ namespace RekdEngine.Event
 
 		public static event DeviceResetEvent DeviceResetEvent;
 
-		public static void RunClickEvent(Form Window, MouseEventArgs e)
+		public static void RunClickEvent(ContainerControl Window, MouseEventArgs e)
 		{
 			if (ClickEvent != null) ClickEvent(Window, e);
 		}
 
-		public static void RunKeyDownEvent(Form Window, KeyEventArgs e)
+		public static void RunKeyDownEvent(ContainerControl Window, KeyEventArgs e)
 		{
 			if (KeyDownEvent != null) KeyDownEvent(Window, e);
 		}
 
-		public static void RunKeyUpEvent(Form Window, KeyEventArgs e)
+		public static void RunKeyUpEvent(ContainerControl Window, KeyEventArgs e)
 		{
 			if (KeyUpEvent != null) KeyUpEvent(Window, e);
 		}
 
-		public static void RunResizeEvent(Form Window, Size e)
+		public static void RunResizeEvent(ContainerControl Window, Size e)
 		{
 			if (ResizeEvent != null) ResizeEvent(Window, e);
 		}
 
-		public static void RunDeviceResetEvent(Form Window, Device e)
+		public static void RunDeviceResetEvent(ContainerControl Window, Device e)
 		{
 			if (DeviceResetEvent != null) DeviceResetEvent(Window, e);
 		}
 
-		public static void RunPreCloseEvent(Form Window, FormClosingEventArgs e)
+		public static void RunPreCloseEvent(ContainerControl Window, FormClosingEventArgs e)
 		{
 			if (CloseEvent != null) CloseEvent(Window, e);
 		}
