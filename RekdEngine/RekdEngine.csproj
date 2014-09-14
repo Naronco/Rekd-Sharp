@@ -59,11 +59,15 @@
     <Compile Include="Content\ContentManager.cs" />
     <Compile Include="Content\Effect.cs" />
     <Compile Include="Content\NonManagedRessource.cs" />
+    <Compile Include="Content\ResourceContainer.cs" />
     <Compile Include="Content\Texture2D.cs" />
     <Compile Include="Core\Color.cs" />
     <Compile Include="Core\Extension.cs" />
     <Compile Include="Core\RunnableRekd.cs" />
     <Compile Include="Core\Game.cs" />
+    <Compile Include="Core\RekdControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Debug\DebugWrite.cs" />
     <Compile Include="Event\Events.cs" />
     <Compile Include="Event\GameEventListener.cs" />

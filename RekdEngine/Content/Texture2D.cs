@@ -16,11 +16,11 @@ namespace RekdEngine.Content
 
 		public int Width, Height;
 
-		private Device Device;
+		private Device device;
 
 		private bool managed;
 
-		private Usage manUsage;
+		private Usage usage;
 
 		public Texture2D()
 		{
@@ -33,16 +33,18 @@ namespace RekdEngine.Content
 			handle = new Texture(d, width, height, 1, Usage.None, Format.A8R8G8B8, Pool.Managed);
 			Width = width;
 			Height = height;
-			Device = d;
+			device = d;
 			managed = true;
+			usage = Usage.None;
 		}
 
 		public Texture2D(Device d, int width, int height, Usage u)
 		{
 			handle = new Texture(d, width, height, 1, u, Format.A8R8G8B8, Pool.Default);
+			usage = u;
 			Width = width;
 			Height = height;
-			Device = d;
+			device = d;
 			managed = false;
 		}
 
@@ -52,8 +54,9 @@ namespace RekdEngine.Content
 			ImageInformation i = ImageInformation.FromFile(file);
 			Width = i.Width;
 			Height = i.Height;
-			Device = d;
+			device = d;
 			managed = true;
+			usage = Usage.None;
 		}
 
 		public Texture2D(Texture t)
@@ -72,7 +75,7 @@ namespace RekdEngine.Content
 
 		public void Bind(int slot)
 		{
-			Device.SetTexture(slot, handle);
+			device.SetTexture(slot, handle);
 		}
 
 		public Surface GetSurfaceLevel(int level)
@@ -83,7 +86,7 @@ namespace RekdEngine.Content
 		public void Reset()
 		{
 			if (!managed)
-				handle = new Texture(Device, Width, Height, 1, manUsage, Format.A8R8G8B8, Pool.Default);
+				handle = new Texture(device, Width, Height, 1, usage, Format.A8R8G8B8, Pool.Default);
 		}
 
 		public void Lost()

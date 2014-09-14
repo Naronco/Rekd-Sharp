@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -18,10 +19,13 @@ namespace RekdTest
 		[STAThread]
 		public static void Main()
 		{
-			using (Game1 game = new Game1())
+			Application.SetCompatibleTextRenderingDefault(false);
+			Application.EnableVisualStyles();
+			Application.Run(new TestForm());
+			/*using (Game1 game = new Game1())
 			{
-				game.Run("Rekd Test", 1200, 675);
-			}
+				game.Run("Rekd Test", 640, 480);
+			}*/
 		}
 	}
 }

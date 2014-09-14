@@ -66,13 +66,15 @@ namespace RekdEngine.Core
 		{
 			Init();
 			Content = new ContentManager(Device);
-			spriteBatch = new SpriteBatch(Device, Content);
+			SpriteBatch = new SpriteBatch(Device, Content);
+			Resources = new ResourceContainer();
+			Resources.Load(Content);
 		}
 
 		protected ContentManager Content { get; set; }
 
 		protected SpriteBatch SpriteBatch { get; set; }
 
-		protected SpriteBatch spriteBatch { get; set; }
+		protected dynamic Resources { get; set; }
 	}
 }
