@@ -33,7 +33,7 @@ namespace RekdEngine.UtilMath
 			return this;
 		}
 
-		public Vector4f Set(float X, float Y, float Z)
+		public Vector4f Set(float X, float Y, float Z, float W)
 		{
 			this.X = X;
 			this.Y = Y;
@@ -49,6 +49,16 @@ namespace RekdEngine.UtilMath
 			Z = other.Z;
 			W = other.W;
 			return this;
+		}
+
+		public override int GetHashCode()
+		{
+			return X.GetHashCode() + Y.GetHashCode() + Z.GetHashCode() + W.GetHashCode();
+		}
+
+		public override bool Equals(object obj)
+		{
+			return obj is Vector4f && this == (Vector4f)obj;
 		}
 
 		public static bool operator ==(Vector4f A, Vector4f B)

@@ -45,6 +45,16 @@ namespace RekdEngine.UtilMath
 			return this;
 		}
 
+		public override int GetHashCode()
+		{
+			return X.GetHashCode() + Y.GetHashCode();
+		}
+
+		public override bool Equals(object obj)
+		{
+			return obj is Vector2f && this == (Vector2f)obj;
+		}
+
 		public static bool operator ==(Vector2f A, Vector2f B)
 		{
 			return A.X == B.X && A.Y == B.Y;
