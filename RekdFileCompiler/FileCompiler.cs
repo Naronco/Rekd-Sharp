@@ -29,7 +29,6 @@ namespace RekdFileCompiler
 
 		private void FileCompiler_Load(object sender, EventArgs e)
 		{
-			contentEditor1.SetDefault();
 		}
 	}
 }

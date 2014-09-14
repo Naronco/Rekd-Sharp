@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{DE041229-A01A-4722-ACD7-AB48B03ADA53}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RekdFileCompiler</RootNamespace>
     <AssemblyName>RekdFileCompiler</AssemblyName>
@@ -30,6 +30,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -62,12 +65,6 @@
     <Compile Include="AddShaderItem.Designer.cs">
       <DependentUpon>AddShaderItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ContentEditor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\ContentEditor.Designer.cs">
-      <DependentUpon>ContentEditor.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Direct3DPreview.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -92,16 +89,13 @@
     <Compile Include="FileCompiler.Designer.cs">
       <DependentUpon>FileCompiler.cs</DependentUpon>
     </Compile>
-    <Compile Include="JSON\ContentType.cs" />
-    <Compile Include="JSON\JSONFormat.cs" />
-    <Compile Include="JSON\JSONShaderFormat.cs" />
+    <Compile Include="File\ContentType.cs" />
+    <Compile Include="File\BaseFormat.cs" />
+    <Compile Include="File\SpritemapFormat.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AddShaderItem.resx">
       <DependentUpon>AddShaderItem.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ContentEditor.resx">
-      <DependentUpon>ContentEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Direct3DPreview.resx">
       <DependentUpon>Direct3DPreview.cs</DependentUpon>

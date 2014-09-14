@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RekdFileCompiler.JSON
+namespace RekdFileCompiler.File
 {
 	public enum ContentType
 	{
 		Mesh,
 		Texture,
+		SpriteMap,
 		Shader,
 		Material,
 		Object

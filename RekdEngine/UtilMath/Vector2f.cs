@@ -36,8 +36,6 @@ namespace RekdEngine.UtilMath
 			return this;
 		}
 
-		//public Vector2f operator +(Vector2f other)
-
 		public Vector2f Set(Vector2f other)
 		{
 			X = other.X;
